@@ -5,19 +5,42 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import DashBoard from "components/Portal/DashBoard";
+import CardDetail from "./components/CardListing/CardDetail";
+import TopMovieContextProvier from "contexts/TopMovieContext";
+import AuthContextProvider from "contexts/AuthContext";
+import MovieContextProvider from "contexts/MovieContext";
+import ThemeContextProvider from "contexts/ThemeContext";
+import ProgressContextProvider from "contexts/ProgressContext";
+import { Navigation } from "components/Shared/Navigation";
+import CardDetailContextProvider from "contexts/CardDetailContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <App />
-        </Route>
-        <Route path="/dashboard">
-          <DashBoard />
-        </Route>
-      </Switch>
-    </Router>
+    <CardDetailContextProvider>
+      <TopMovieContextProvier>
+        <AuthContextProvider>
+          <MovieContextProvider>
+            <ThemeContextProvider>
+              <ProgressContextProvider>
+                <Router>
+                  <Switch>
+                    <Route exact path="/">
+                      <App />
+                    </Route>
+                    <Route path="/dashboard">
+                      <DashBoard />
+                    </Route>
+                    <Route path="/card-detail">
+                      <CardDetail />
+                    </Route>
+                  </Switch>
+                </Router>
+              </ProgressContextProvider>
+            </ThemeContextProvider>
+          </MovieContextProvider>
+        </AuthContextProvider>
+      </TopMovieContextProvier>
+    </CardDetailContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
