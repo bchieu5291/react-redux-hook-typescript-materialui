@@ -1,8 +1,11 @@
-import { PostContext } from "contexts/PostContext";
+import { IToast, PostContext } from "contexts/PostContext";
 import React, { useContext, useEffect } from "react";
-import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, OverlayTrigger, Row, Spinner, Toast, Tooltip } from "react-bootstrap";
 import { AuthContext } from "contexts/AuthContext";
 import SinglePost from "components/posts/SinglePost";
+import AddPostModal from "./../posts/AddPostModal";
+import addIcon from "assets/plus-circle-fill.svg";
+import UpdatePostModal from "./../posts/UpdatePostModal";
 
 const Portal = () => {
     //context
@@ -11,9 +14,14 @@ const Portal = () => {
             user: { username },
         },
     } = useContext(AuthContext);
+
     const {
-        postState: { posts, postsLoading },
+        postState: { posts, postsLoading, postDetail },
         getPosts,
+        showAddPostModal,
+        setShowAddPostModal,
+        showToast,
+        setShowToast,
     } = useContext(PostContext);
 
     //Start: Get all posts
@@ -39,7 +47,9 @@ const Portal = () => {
                         <Card.Text>
                             Click the button below to track your first skill to learn
                         </Card.Text>
-                        <Button variant="primary">Learnt It</Button>
+                        <Button variant="primary" onClick={setShowAddPostModal.bind(this, true)}>
+                            Learnt It
+                        </Button>
                     </Card.Body>
                 </Card>
             </>
@@ -54,11 +64,42 @@ const Portal = () => {
                         </Col>
                     ))}
                 </Row>
+
+                {/* {Open Modal} */}
+                <OverlayTrigger
+                    placement="left"
+                    overlay={<Tooltip id="tool-tip-add-post">Add a new thing to learn</Tooltip>}
+                >
+                    <Button className="btn-floating" onClick={setShowAddPostModal.bind(this, true)}>
+                        <img src={addIcon} alt="addPost" width="60" height="60" />
+                    </Button>
+                </OverlayTrigger>
             </>
         );
     }
 
-    return <>{body}</>;
+    return (
+        <>
+            {body}
+            <AddPostModal />
+            {postDetail !== null && <UpdatePostModal />}
+            {/* show toast after added post */}
+            <Toast
+                show={showToast.show}
+                style={{ position: "fixed", top: "20%", right: "10%" }}
+                className={`bg-${showToast.type} text-white`}
+                onClose={setShowToast.bind(this, {
+                    show: false,
+                    message: "",
+                    type: "",
+                } as IToast)}
+                delay={3000}
+                autohide
+            >
+                <strong>{showToast.message}</strong>
+            </Toast>
+        </>
+    );
 };
 
 export default Portal;

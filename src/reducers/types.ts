@@ -11,4 +11,8 @@ export enum TopMovieActionType {
 export enum PostsActionType {
     POST_LOADED_SUCCESS = "POST_LOADED_SUCCESS",
     POST_LOADED_FAIL = "POST_LOADED_FAIL",
+    ADD_POST = "ADD_POST",
+    DELETE_POST = "DELETE_POST",
+    UPDATE_POST = "UPDATE_POST",
+    FIND_POST_BY_ID = "FIND_POST_BY_ID",
 }
