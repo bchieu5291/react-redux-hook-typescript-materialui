@@ -1,11 +1,11 @@
 import { PropTypes } from "@material-ui/core";
 import axios from "axios";
-import setAuthToken from "components/ultilities/setAuthToken";
+import setAuthToken from "ultilities/setAuthToken";
 import React, { createContext, ReactNode, useState, useReducer, useEffect } from "react";
 import { authReducer, AuthState } from "reducers/AuthReducer";
 import { BaseReponseModel, IRegisterForm, UserForm } from "requestModel/AuthForm";
 import { AuthActionType } from "../reducers/types";
-import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "./../components/ultilities/constanst";
+import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "../ultilities/constanst";
 
 const { TOGGLE_AUTH, SET_AUTH } = AuthActionType;
 
@@ -66,6 +66,8 @@ const AuthContextProvider = ({ children }: Props) => {
     };
 
     useEffect(() => {
+        console.log(process.env);
+        console.log(process.env.REACT_APP_SITE_ENV);
         loadUser();
         return () => {};
     }, []);

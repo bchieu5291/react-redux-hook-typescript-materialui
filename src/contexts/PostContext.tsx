@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, ReactNode, useReducer, useState } from "react";
 import { postReducer, PostState } from "reducers/postReducer";
 import { PostsActionType } from "reducers/types";
-import { apiUrl } from "./../components/ultilities/constanst";
+import { apiUrl } from "../ultilities/constanst";
 import { Post } from "./../reducers/postReducer";
 
 const { POST_LOADED_SUCCESS, ADD_POST, DELETE_POST, UPDATE_POST, FIND_POST_BY_ID } =
