@@ -1,7 +1,7 @@
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { UserForm } from "requestModel/AuthForm";
+import { UserForm } from "model/AuthForm";
 import { Redirect, Route } from "react-router-dom";
 import NavbarV2 from "components/Shared/NavbarV2";
 

@@ -27,6 +27,9 @@ const NavbarV2 = () => {
                     <Nav.Link className="font-weight-bolder text-white" to="/about" as={Link}>
                         About
                     </Nav.Link>
+                    <Nav.Link className="font-weight-bolder text-white" to="/portal/news" as={Link}>
+                        News
+                    </Nav.Link>
                 </Nav>
                 <Nav>
                     <Nav.Link className="font-weight-bolder text-white" disabled>

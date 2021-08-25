@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, ReactNode, useReducer, useState } from "react";
 import { postReducer, PostState } from "reducers/postReducer";
 import { PostsActionType } from "reducers/types";
+import { IToast } from "model/AuthForm";
 import { apiUrl } from "../ultilities/constanst";
 import { Post } from "./../reducers/postReducer";
 
@@ -10,12 +11,6 @@ const { POST_LOADED_SUCCESS, ADD_POST, DELETE_POST, UPDATE_POST, FIND_POST_BY_ID
 
 interface Props {
     children: ReactNode;
-}
-
-export interface IToast {
-    show: boolean;
-    message: string;
-    type: any;
 }
 
 interface ContextDefault {

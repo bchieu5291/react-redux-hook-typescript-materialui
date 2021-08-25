@@ -3,7 +3,7 @@ import axios from "axios";
 import setAuthToken from "ultilities/setAuthToken";
 import React, { createContext, ReactNode, useState, useReducer, useEffect } from "react";
 import { authReducer, AuthState } from "reducers/AuthReducer";
-import { BaseReponseModel, IRegisterForm, UserForm } from "requestModel/AuthForm";
+import { BaseReponseModel, IRegisterForm, UserForm } from "model/AuthForm";
 import { AuthActionType } from "../reducers/types";
 import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "../ultilities/constanst";
 

@@ -16,3 +16,12 @@ export enum PostsActionType {
     UPDATE_POST = "UPDATE_POST",
     FIND_POST_BY_ID = "FIND_POST_BY_ID",
 }
+
+export enum NewsActionType {
+    NEWS_LOADED_SUCCESS = "NEWS_LOADED_SUCCESS",
+    NEWS_LOADED_FAIL = "NEWS_LOADED_FAIL",
+    ADD_NEWS = "ADD_NEWS",
+    DELETE_NEWS = "DELETE_NEWS",
+    UPDATE_NEWS = "UPDATE_NEWS",
+    FIND_NEWS_BY_ID = "FIND_POST_BY_ID",
+}

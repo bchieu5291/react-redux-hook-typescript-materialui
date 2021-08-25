@@ -14,3 +14,14 @@ export interface IRegisterForm {
     password: string;
     confirmPassword: string;
 }
+
+export interface IToast {
+    show: boolean;
+    message: string;
+    type: any;
+}
+
+export interface IImageFile {
+    _id: string;
+    imagebase64: string;
+}

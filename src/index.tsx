@@ -22,6 +22,8 @@ import Portal from "./components/Portal/Portal";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import About from "./components/Portal/About";
 import PostContextProvider from "contexts/PostContext";
+import NewsListing from "./components/Portal/NewsListing";
+import NewsContextProvider from "contexts/NewsContext";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -29,50 +31,63 @@ ReactDOM.render(
             <TopMovieContextProvier>
                 <AuthContextProvider>
                     <PostContextProvider>
-                        <MovieContextProvider>
-                            <ThemeContextProvider>
-                                <ProgressContextProvider>
-                                    <Router>
-                                        <Switch>
-                                            <Route exact path="/" component={Landing}></Route>
-                                            <Route
-                                                exact
-                                                path="/login"
-                                                render={(props) => (
-                                                    <AuthTemplate {...props} authRoute="login" />
-                                                )}
-                                            ></Route>
-                                            <Route
-                                                exact
-                                                path="/register"
-                                                render={(props) => (
-                                                    <AuthTemplate {...props} authRoute="register" />
-                                                )}
-                                            ></Route>
-                                            <ProtectedRoute
-                                                exact
-                                                path="/portal"
-                                                component={Portal}
-                                            ></ProtectedRoute>
-                                            <ProtectedRoute
-                                                exact
-                                                path="/about"
-                                                component={About}
-                                            ></ProtectedRoute>
-                                            <Route path="/dashboard">
-                                                <DashBoard />
-                                            </Route>
-                                            <Route path="/card-detail">
-                                                <CardDetail />
-                                            </Route>
-                                            <Route path="/movie-listing">
-                                                <CardDetail />
-                                            </Route>
-                                        </Switch>
-                                    </Router>
-                                </ProgressContextProvider>
-                            </ThemeContextProvider>
-                        </MovieContextProvider>
+                        <NewsContextProvider>
+                            <MovieContextProvider>
+                                <ThemeContextProvider>
+                                    <ProgressContextProvider>
+                                        <Router>
+                                            <Switch>
+                                                <Route exact path="/" component={Landing}></Route>
+                                                <Route
+                                                    exact
+                                                    path="/login"
+                                                    render={(props) => (
+                                                        <AuthTemplate
+                                                            {...props}
+                                                            authRoute="login"
+                                                        />
+                                                    )}
+                                                ></Route>
+                                                <Route
+                                                    exact
+                                                    path="/register"
+                                                    render={(props) => (
+                                                        <AuthTemplate
+                                                            {...props}
+                                                            authRoute="register"
+                                                        />
+                                                    )}
+                                                ></Route>
+                                                <ProtectedRoute
+                                                    exact
+                                                    path="/portal"
+                                                    component={Portal}
+                                                ></ProtectedRoute>
+                                                <ProtectedRoute
+                                                    exact
+                                                    path="/about"
+                                                    component={About}
+                                                ></ProtectedRoute>
+                                                <ProtectedRoute
+                                                    exact
+                                                    path="/portal/news"
+                                                    component={NewsListing}
+                                                ></ProtectedRoute>
+                                                <Route path="/dashboard">
+                                                    <DashBoard />
+                                                </Route>
+                                                <Route path="/card-detail">
+                                                    <CardDetail />
+                                                </Route>
+                                                <Route path="/movie-listing">
+                                                    <CardDetail />
+                                                </Route>
+                                            </Switch>
+                                        </Router>
+                                    </ProgressContextProvider>
+                                </ThemeContextProvider>
+                            </MovieContextProvider>
+                        </NewsContextProvider>
                     </PostContextProvider>
                 </AuthContextProvider>
             </TopMovieContextProvier>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
-import { UserForm } from "requestModel/AuthForm";
+import { UserForm } from "model/AuthForm";
 import AlertMessage, { IAlert } from "components/Shared/AlertMessage";
 
 const LoginForm = () => {
