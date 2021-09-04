@@ -179,3 +179,16 @@ button.post-button.btn:active {
   ::-webkit-file-upload-button {
 	display: none;
  }
+
+ .maxH-150{
+	 max-height: 200px;
+ }
+
+ .login-btn{
+	 position: absolute;
+	 right: 10px;
+ }
+
+ .maxH-250{
+	 height: 400px;
+ }

@@ -1,29 +1,27 @@
+import DashBoard from "components/Portal/DashBoard";
+import AuthContextProvider from "contexts/AuthContext";
+import CardDetailContextProvider from "contexts/CardDetailContext";
+import MovieContextProvider from "contexts/MovieContext";
+import NewsContextProvider from "contexts/NewsContext";
+import PostContextProvider from "contexts/PostContext";
+import ProgressContextProvider from "contexts/ProgressContext";
+import ThemeContextProvider from "contexts/ThemeContext";
+import TopMovieContextProvier from "contexts/TopMovieContext";
+import NewsPage from "PublicPages/NewsPage";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import DashBoard from "components/Portal/DashBoard";
-import CardDetail from "./components/CardListing/CardDetail";
-import TopMovieContextProvier from "contexts/TopMovieContext";
-import AuthContextProvider from "contexts/AuthContext";
-import MovieContextProvider from "contexts/MovieContext";
-import ThemeContextProvider from "contexts/ThemeContext";
-import ProgressContextProvider from "contexts/ProgressContext";
-import { Navigation } from "components/Shared/Navigation";
-import CardDetailContextProvider from "contexts/CardDetailContext";
-import Landing from "components/layout/Landing";
-import Login from "./components/Login";
-import AuthTemplate from "./components/Template/AuthTemplate";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+import CardDetail from "./components/CardListing/CardDetail";
+import About from "./components/Portal/About";
+import NewsListing from "./components/Portal/NewsListing";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import Portal from "./components/Portal/Portal";
+import AuthTemplate from "./components/Template/AuthTemplate";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 import ProtectedRoute from "./routing/ProtectedRoute";
-import About from "./components/Portal/About";
-import PostContextProvider from "contexts/PostContext";
-import NewsListing from "./components/Portal/NewsListing";
-import NewsContextProvider from "contexts/NewsContext";
+import NewsDetailPages from "./PublicPages/NewsDetailPages";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -37,7 +35,11 @@ ReactDOM.render(
                                     <ProgressContextProvider>
                                         <Router>
                                             <Switch>
-                                                <Route exact path="/" component={Landing}></Route>
+                                                <Route exact path="/" component={NewsPage}></Route>
+                                                <Route
+                                                    path="/news/:id"
+                                                    component={NewsDetailPages}
+                                                ></Route>
                                                 <Route
                                                     exact
                                                     path="/login"

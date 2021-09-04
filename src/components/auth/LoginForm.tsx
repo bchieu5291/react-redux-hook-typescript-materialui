@@ -81,6 +81,11 @@ const LoginForm = () => {
                     </Button>
                 </Link>
             </p>
+            <p>
+                <Link to="/">
+                    <p>Back to Homepage</p>
+                </Link>
+            </p>
         </>
     );
 };
