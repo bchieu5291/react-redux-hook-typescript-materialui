@@ -43,7 +43,10 @@ const NewsPage = () => {
                     <a href="#!">
                         <img
                             className="card-img-top"
-                            src={`data:image/jpeg;base64,${firstNews.imageFile.imagebase64}`}
+                            src={`${firstNews.imageFile.imageUrl.replace(
+                                "-original",
+                                "-firstNews"
+                            )}`}
                             alt="..."
                         />
                     </a>
@@ -87,8 +90,11 @@ const NewsPage = () => {
                     <div className="card mb-4">
                         <a href="#!">
                             <img
-                                className="card-img-top maxH-150"
-                                src={`data:image/jpeg;base64,${newsItem.imageFile.imagebase64}`}
+                                className="card-img-top"
+                                src={`${newsItem.imageFile.imageUrl.replace(
+                                    "-original",
+                                    "-restNews"
+                                )}`}
                                 alt="..."
                             />
                         </a>

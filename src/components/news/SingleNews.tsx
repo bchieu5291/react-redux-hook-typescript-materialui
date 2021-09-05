@@ -19,7 +19,7 @@ const SingleNews = (news: News) => {
                             <Card.Img
                                 className="news-item-image"
                                 variant="top"
-                                src={`data:image/jpeg;base64,${news.imageFile.imagebase64}`}
+                                src={`${news.imageFile.imageUrl}`}
                             />
                         </Col>
                         <Col md="9">

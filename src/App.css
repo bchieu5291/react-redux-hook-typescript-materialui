@@ -192,3 +192,7 @@ button.post-button.btn:active {
  .maxH-250{
 	 height: 400px;
  }
+
+ .me-auto{
+	 margin-right: auto;
+ }

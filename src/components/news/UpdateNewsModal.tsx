@@ -94,7 +94,7 @@ const UpdateNewsModal = () => {
                                     <Row>
                                         <Col>
                                             <Card.Img
-                                                src={`data:image/jpeg;base64,${newsDetail.imageFile.imagebase64}`}
+                                                src={`${newsDetail.imageFile.imageUrl}`}
                                             ></Card.Img>
                                         </Col>
                                     </Row>

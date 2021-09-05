@@ -23,5 +23,5 @@ export interface IToast {
 
 export interface IImageFile {
     _id: string;
-    imagebase64: string;
+    imageUrl: string;
 }

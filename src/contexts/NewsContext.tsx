@@ -33,7 +33,7 @@ const defaultPostData: News = {
     url: "",
     imageFile: {
         _id: "",
-        imagebase64: "",
+        imageUrl: "",
     },
 };
 
@@ -85,7 +85,7 @@ const NewsContextProvider = ({ children }: Props) => {
                     payload: response.data.news,
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -111,7 +111,7 @@ const NewsContextProvider = ({ children }: Props) => {
                     return response.data;
                 }
             });
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -147,7 +147,7 @@ const NewsContextProvider = ({ children }: Props) => {
                     return response.data;
                 }
             });
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -166,7 +166,7 @@ const NewsContextProvider = ({ children }: Props) => {
 
                 return response.data;
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
