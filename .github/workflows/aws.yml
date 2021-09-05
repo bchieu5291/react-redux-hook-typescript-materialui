@@ -17,4 +17,4 @@ jobs:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
-          script: sudo sh script/deploy.sh
+          script: sudo sh /home/ubuntu/react-redux-hook-typescript-materialui/script/deploy.sh
