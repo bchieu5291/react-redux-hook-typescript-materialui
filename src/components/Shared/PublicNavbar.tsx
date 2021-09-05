@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PublicNavbar = () => {
     return (
-        <Navbar bg="secondary" expand="lg" variant="dark">
+        <Navbar bg="primary" expand="lg" variant="dark">
             <Container>
                 <Navbar.Brand to="/" as={Link} className="text-white">
                     G-Dev
