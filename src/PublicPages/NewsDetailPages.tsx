@@ -37,7 +37,10 @@ const NewsDetailPages = () => {
                         <div className="col-md-8">
                             <img
                                 className="img-fluid"
-                                src={`${newsDetail.imageFile.imageUrl}`}
+                                src={`${newsDetail.imageFile.imageUrl.replace(
+                                    "-original",
+                                    "-firstNews"
+                                )}`}
                                 alt=""
                             />
                         </div>

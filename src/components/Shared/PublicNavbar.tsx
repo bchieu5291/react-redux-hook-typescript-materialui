@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PublicNavbar = () => {
     return (
-        <Navbar bg="#fff" expand="lg" variant="dark">
+        <Navbar bg="secondary" expand="lg" variant="dark">
             <Container>
                 <Navbar.Brand to="/" as={Link} className="text-white">
                     G-Dev
@@ -16,8 +16,14 @@ const PublicNavbar = () => {
                         <Nav.Link className="font-weight-bolder text-white" to="/login" as={Link}>
                             News
                         </Nav.Link>
+                        <Nav.Link
+                            className="font-weight-bolder text-white"
+                            href="http://nextjs.georgedev.info"
+                            target="_blank"
+                        >
+                            NextJS
+                        </Nav.Link>
                     </Nav>
-
                     <Nav>
                         <Nav.Link className="font-weight-bolder text-white" to="/login" as={Link}>
                             Login
