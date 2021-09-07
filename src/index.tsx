@@ -23,6 +23,7 @@ import About from "Portal/About";
 import NewsListing from "Portal/NewsListing";
 import DashBoard from "Portal/DashBoard";
 import PortalResizeImage from "./Portal/PortalResizeImage";
+import { ChakraProvider } from "@chakra-ui/react";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -99,7 +100,7 @@ ReactDOM.render(
                     </PostContextProvider>
                 </AuthContextProvider>
             </TopMovieContextProvier>
-        </CardDetailContextProvider>
+        </CardDetailContextProvider>{" "}
     </React.StrictMode>,
     document.getElementById("root")
 );

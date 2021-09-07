@@ -1,7 +1,9 @@
 import PublicTemplate from "components/Template/PublicTemplate";
 import { NewsContext } from "contexts/NewsContext";
-import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import { News } from "reducers/newsReducer";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 
@@ -18,20 +20,29 @@ const NewsDetailPages = () => {
         findNews,
     } = useContext(NewsContext);
 
+    const [relatedNews, setRelatedNews] = useState<News[]>([]);
+
     //Start: Get all news
     useEffect(() => {
         getNews();
-    }, []);
+    }, [params]);
 
     useEffect(() => {
         findNews(params.id);
+
+        // Shuffle array
+        const shuffled = newsListing
+            .filter((t) => t._id != params.id)
+            .sort(() => 0.5 - Math.random());
+        var relatedItems = shuffled.slice(0, 4);
+        setRelatedNews(relatedItems);
     }, [newsListing]);
 
     return (
         <PublicTemplate>
             {newsDetail && (
                 <div className="container">
-                    <h1 className="my-4">News Detail</h1>
+                    <h1 className="my-4">{newsDetail.title}</h1>
 
                     <div className="row">
                         <div className="col-md-8">
@@ -39,16 +50,16 @@ const NewsDetailPages = () => {
                                 className="img-fluid"
                                 src={`${newsDetail.imageFile.imageUrl.replace(
                                     "-original",
-                                    "-firstNews"
+                                    "-detail"
                                 )}`}
                                 alt=""
                             />
                         </div>
 
                         <div className="col-md-4">
-                            <h3 className="my-3">{newsDetail.title}</h3>
+                            <h3 className="my-3">Information</h3>
                             <div dangerouslySetInnerHTML={{ __html: newsDetail.description }} />
-                            <h3 className="my-3">Project Details</h3>
+                            <h3 className="my-3">Classifications</h3>
                             <ul>
                                 <li>Lorem Ipsum</li>
                                 <li>Dolor Sit Amet</li>
@@ -59,47 +70,24 @@ const NewsDetailPages = () => {
                     </div>
 
                     <h3 className="my-4">Related Projects</h3>
-
                     <div className="row">
-                        <div className="col-md-3 col-sm-6 mb-4">
-                            <a href="#">
-                                <img
-                                    className="img-fluid"
-                                    src="https://via.placeholder.com/500x300"
-                                    alt=""
-                                />
-                            </a>
-                        </div>
-
-                        <div className="col-md-3 col-sm-6 mb-4">
-                            <a href="#">
-                                <img
-                                    className="img-fluid"
-                                    src="https://via.placeholder.com/500x300"
-                                    alt=""
-                                />
-                            </a>
-                        </div>
-
-                        <div className="col-md-3 col-sm-6 mb-4">
-                            <a href="#">
-                                <img
-                                    className="img-fluid"
-                                    src="https://via.placeholder.com/500x300"
-                                    alt=""
-                                />
-                            </a>
-                        </div>
-
-                        <div className="col-md-3 col-sm-6 mb-4">
-                            <a href="#">
-                                <img
-                                    className="img-fluid"
-                                    src="https://via.placeholder.com/500x300"
-                                    alt=""
-                                />
-                            </a>
-                        </div>
+                        {relatedNews.map((item) => {
+                            return (
+                                <div key={item._id} className="col-md-3 col-sm-6 mb-4">
+                                    <Link to={`/news/${item._id}`}>
+                                        <img
+                                            className="img-fluid"
+                                            src={item.imageFile.imageUrl.replace(
+                                                "-original",
+                                                "-related"
+                                            )}
+                                            alt=""
+                                        />
+                                    </Link>
+                                    <Link to={`/news/${item._id}`}>{item.title}</Link>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}

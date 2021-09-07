@@ -30,6 +30,13 @@ const NavbarV2 = () => {
                     <Nav.Link className="font-weight-bolder text-white" to="/portal/news" as={Link}>
                         News
                     </Nav.Link>
+                    <Nav.Link
+                        className="font-weight-bolder text-white"
+                        to="/portal/resize-image"
+                        as={Link}
+                    >
+                        Resize Image
+                    </Nav.Link>
                 </Nav>
                 <Nav>
                     <Nav.Link className="font-weight-bolder text-white" disabled>
