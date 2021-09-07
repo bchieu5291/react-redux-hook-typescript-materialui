@@ -3,10 +3,10 @@ import React, { useContext, useEffect } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Spinner, Toast, Tooltip } from "react-bootstrap";
 import { AuthContext } from "contexts/AuthContext";
 import SinglePost from "components/posts/SinglePost";
-import AddPostModal from "./../posts/AddPostModal";
 import addIcon from "assets/plus-circle-fill.svg";
-import UpdatePostModal from "./../posts/UpdatePostModal";
 import { IToast } from "model/AuthForm";
+import UpdatePostModal from "components/posts/UpdatePostModal";
+import AddPostModal from "components/posts/AddPostModal";
 
 const Portal = () => {
     //context

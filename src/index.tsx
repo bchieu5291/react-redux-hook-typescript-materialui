@@ -1,4 +1,3 @@
-import DashBoard from "components/Portal/DashBoard";
 import AuthContextProvider from "contexts/AuthContext";
 import CardDetailContextProvider from "contexts/CardDetailContext";
 import MovieContextProvider from "contexts/MovieContext";
@@ -13,15 +12,17 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import CardDetail from "./components/CardListing/CardDetail";
-import About from "./components/Portal/About";
-import NewsListing from "./components/Portal/NewsListing";
 // import "bootstrap/dist/css/bootstrap.min.css";
-import Portal from "./components/Portal/Portal";
 import AuthTemplate from "./components/Template/AuthTemplate";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import NewsDetailPages from "./PublicPages/NewsDetailPages";
+import Portal from "Portal/Portal";
+import About from "Portal/About";
+import NewsListing from "Portal/NewsListing";
+import DashBoard from "Portal/DashBoard";
+import PortalResizeImage from "./Portal/PortalResizeImage";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -74,6 +75,11 @@ ReactDOM.render(
                                                     exact
                                                     path="/portal/news"
                                                     component={NewsListing}
+                                                ></ProtectedRoute>
+                                                <ProtectedRoute
+                                                    exact
+                                                    path="/portal/resize-image"
+                                                    component={PortalResizeImage}
                                                 ></ProtectedRoute>
                                                 <Route path="/dashboard">
                                                     <DashBoard />

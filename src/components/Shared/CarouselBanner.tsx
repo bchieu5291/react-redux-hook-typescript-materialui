@@ -13,28 +13,28 @@ const CarouselBanner = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/15ae46dee65acfe6aa9c9e169b473bd3-firstNews"
+                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/3403b1df1d05d89c131f536cd6c52240-banner"
                     alt="First slide"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/19c837d1267ce794e77b6aad6894f85f-firstNews"
+                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/b4403d3364bf49e67fd6ea85c12d0850-banner"
                     alt="Second slide"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/a79db5b629cd9bff7f8af076387fb650-firstNews"
+                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/229c659ccbb29960bc9ed16ea27828d6-banner"
                     alt="Second slide"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/3403b1df1d05d89c131f536cd6c52240-firstNews"
+                    src="https://g-node-test.s3.ap-southeast-1.amazonaws.com/2df12d36479f62cf983fe7bf19ddbe93-banner"
                     alt="Second slide"
                 />
             </Carousel.Item>
