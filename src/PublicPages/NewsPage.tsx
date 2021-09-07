@@ -6,6 +6,7 @@ import { NewsContext } from "contexts/NewsContext";
 import React, { useContext, useEffect } from "react";
 import { Button, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Moment from "moment";
 
 const NewsPage = () => {
     const {
@@ -15,6 +16,8 @@ const NewsPage = () => {
     } = useContext(NewsContext);
 
     const { findNews } = useContext(NewsContext);
+
+    Moment.locale("en");
 
     //Start: Get all news
     useEffect(() => {
@@ -51,7 +54,9 @@ const NewsPage = () => {
                         />
                     </a>
                     <div className="card-body">
-                        <div className="small text-muted">January 1, 2021</div>
+                        <div className="small text-muted">
+                            {Moment(firstNews.createAt).format("DD MMM yyyy hh:mm:ss")}
+                        </div>
                         <h2 className="card-title">{firstNews.title}</h2>
                         <p className="card-text">
                             {" "}
@@ -99,7 +104,9 @@ const NewsPage = () => {
                             />
                         </a>
                         <div className="card-body">
-                            <div className="small text-muted">January 1, 2021</div>
+                            <div className="small text-muted">
+                                {Moment(newsItem.createAt).format("DD MMM yyyy hh:mm:ss")}
+                            </div>
                             <h2 className="card-title">{newsItem.title}</h2>
                             <p className="card-text">
                                 {" "}

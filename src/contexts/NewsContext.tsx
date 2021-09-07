@@ -31,6 +31,7 @@ const defaultPostData: News = {
     title: "",
     description: "",
     url: "",
+    createAt: new Date(),
     imageFile: {
         _id: "",
         imageUrl: "",

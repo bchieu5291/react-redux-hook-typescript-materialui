@@ -17,6 +17,7 @@ export interface News {
     description: string;
     url: string;
     imageFile: IImageFile;
+    createAt: Date;
 }
 
 export interface NewsReducerState {
