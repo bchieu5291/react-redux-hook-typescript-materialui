@@ -1,12 +1,12 @@
-import { FormGroup } from "@material-ui/core";
 import InputField from "components/custom/InputField";
+import SelectDropdownField from "components/custom/SelectDropdownField";
 import UploadFileField from "components/custom/UploadFileField";
+import { ClassificationContext } from "contexts/ClassificationContext";
 import { NewsContext } from "contexts/NewsContext";
 import { FastField, Formik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { News } from "reducers/newsReducer";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { Classification } from "reducers/classificationReducer";
 import CKEditorField from "./../custom/CKEditorField";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
@@ -16,19 +16,33 @@ interface IAddNews {
     description: string;
     url: string;
     image: File[];
+    classifications: Classification[];
 }
 
 const AddNewsModal = () => {
     //context
     const { addNews, showAddNewsModal, setShowAddNewsModal } = useContext(NewsContext);
-
+    const {
+        getClassifications,
+        classifcationState: { classificationsLoading, classifications },
+    } = useContext(ClassificationContext);
     //state
 
-    const initialValues: IAddNews = { title: "", description: "", url: "", image: [] };
+    const initialValues: IAddNews = {
+        title: "",
+        description: "",
+        url: "",
+        image: [],
+        classifications: [],
+    };
 
     const resetAddNewsData = () => {
         setShowAddNewsModal(false);
     };
+
+    useEffect(() => {
+        getClassifications();
+    }, []);
 
     const onSubmit = async (values: IAddNews) => {
         try {
@@ -36,6 +50,10 @@ const AddNewsModal = () => {
             _formData.append("title", values.title);
             _formData.append("description", values.description);
             _formData.append("url", values.url);
+            _formData.append(
+                "classifications",
+                values.classifications.map((item) => item.value).join(",")
+            );
             _formData.append("imageFile", values.image[0] as File);
 
             // var newNews = {
@@ -90,6 +108,13 @@ const AddNewsModal = () => {
                                         component={UploadFileField}
                                         label="Image"
                                         placeholder="Select image"
+                                    />
+                                    <FastField
+                                        name="classifications"
+                                        component={SelectDropdownField}
+                                        options={classifications}
+                                        label="Classifications"
+                                        placeholder="Select"
                                     />
                                 </Modal.Body>
                                 <Modal.Footer>

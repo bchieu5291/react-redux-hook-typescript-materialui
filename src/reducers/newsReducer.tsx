@@ -1,6 +1,7 @@
 import { PostsActionType } from "./types";
 import { NewsActionType } from "reducers/types";
 import { IImageFile } from "model/AuthForm";
+import { Classification, ClassificationReponse } from "./classificationReducer";
 
 const {
     NEWS_LOADED_SUCCESS,
@@ -17,6 +18,7 @@ export interface News {
     description: string;
     url: string;
     imageFile: IImageFile;
+    classifications: ClassificationReponse[];
     createAt: Date;
 }
 

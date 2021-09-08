@@ -34,6 +34,14 @@ const SingleNews = (news: News) => {
                                               .concat("...")
                                         : news.description.replace(regex, "")}
                                 </Card.Text>
+                                <Card.Text>
+                                    {news.classifications &&
+                                        news.classifications.length > 0 &&
+                                        "Classification: " +
+                                            news.classifications
+                                                .map((item) => item.title)
+                                                .join(", ")}
+                                </Card.Text>
                             </Card.Body>
                             <Row className="no-gutters">
                                 <Col className="text-right">

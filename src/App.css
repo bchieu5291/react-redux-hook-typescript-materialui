@@ -196,3 +196,12 @@ button.post-button.btn:active {
  .me-auto{
 	 margin-right: auto;
  }
+
+ 
+ .filter__menu-list{
+	background-color: gray;
+}
+
+.filter__menu-list .filter__option--is-focused{
+	background-color: darkorange;
+}

@@ -61,10 +61,9 @@ const NewsDetailPages = () => {
                             <div dangerouslySetInnerHTML={{ __html: newsDetail.description }} />
                             <h3 className="my-3">Classifications</h3>
                             <ul>
-                                <li>Lorem Ipsum</li>
-                                <li>Dolor Sit Amet</li>
-                                <li>Consectetur</li>
-                                <li>Adipiscing Elit</li>
+                                {newsDetail.classifications.map((item) => (
+                                    <li>{item.title}</li>
+                                ))}
                             </ul>
                         </div>
                     </div>

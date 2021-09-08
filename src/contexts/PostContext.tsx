@@ -86,7 +86,7 @@ const PostContextProvider = ({ children }: Props) => {
                     payload: response.data.posts,
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -105,7 +105,7 @@ const PostContextProvider = ({ children }: Props) => {
 
                 return response.data;
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -124,7 +124,7 @@ const PostContextProvider = ({ children }: Props) => {
 
                 return response.data;
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };
@@ -152,7 +152,7 @@ const PostContextProvider = ({ children }: Props) => {
 
                 return response.data;
             }
-        } catch (error) {
+        } catch (error: any) {
             return error.response.data
                 ? error.response.data
                 : { success: false, message: "Server error" };

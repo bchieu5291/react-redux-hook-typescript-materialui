@@ -36,6 +36,7 @@ const defaultPostData: News = {
         _id: "",
         imageUrl: "",
     },
+    classifications: [],
 };
 
 const defaultData: NewsReducerState = {

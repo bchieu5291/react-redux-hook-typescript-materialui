@@ -8,6 +8,9 @@ import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { News } from "reducers/newsReducer";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CKEditorField from "./../custom/CKEditorField";
+import { Classification } from "reducers/classificationReducer";
+import SelectDropdownField from "components/custom/SelectDropdownField";
+import { ClassificationContext } from "contexts/ClassificationContext";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 
@@ -16,6 +19,7 @@ interface IAddNews {
     description: string;
     url: string;
     image: File[];
+    classifications: Classification[];
 }
 
 const UpdateNewsModal = () => {
@@ -26,12 +30,21 @@ const UpdateNewsModal = () => {
         setShowUpdateNewsModal,
         updateNews,
     } = useContext(NewsContext);
+    const {
+        getClassifications,
+        classifcationState: { classificationsLoading, classifications },
+    } = useContext(ClassificationContext);
 
     //state
 
     let initialValues: IAddNews = {
         ...newsDetail,
         image: [],
+        classifications:
+            newsDetail.classifications.map((item) => ({
+                value: item._id,
+                label: item.title,
+            })) || [],
     };
 
     const resetUpdateNewsData = () => {
@@ -45,6 +58,10 @@ const UpdateNewsModal = () => {
             _formData.append("description", values.description);
             _formData.append("url", values.url);
             _formData.append("imageFile", values.image[0] as File);
+            _formData.append(
+                "classifications",
+                values.classifications.map((item) => item.value).join(",")
+            );
             const response = await updateNews(_formData);
 
             resetUpdateNewsData();
@@ -91,13 +108,21 @@ const UpdateNewsModal = () => {
                                         label="Image"
                                         placeholder="Select image"
                                     />
-                                    <Row>
+                                    <Row className="mb-2">
                                         <Col>
                                             <Card.Img
                                                 src={`${newsDetail.imageFile.imageUrl}`}
                                             ></Card.Img>
                                         </Col>
                                     </Row>
+
+                                    <FastField
+                                        name="classifications"
+                                        component={SelectDropdownField}
+                                        options={classifications}
+                                        label="Classifications"
+                                        placeholder="Select"
+                                    />
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button
