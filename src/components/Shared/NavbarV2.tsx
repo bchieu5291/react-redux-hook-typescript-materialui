@@ -4,6 +4,7 @@ import learItLogo from "assets/logo.svg";
 import logoutLogo from "assets/logout.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const NavbarV2 = () => {
     const {
@@ -12,6 +13,8 @@ const NavbarV2 = () => {
         },
         logoutUser,
     } = useContext(AuthContext);
+
+    const [t, i18n] = useTranslation("common");
 
     return (
         <Navbar expand="lg" bg="primary" variant="dark" className="shadow">
@@ -28,7 +31,7 @@ const NavbarV2 = () => {
                         About
                     </Nav.Link>
                     <Nav.Link className="font-weight-bolder text-white" to="/portal/news" as={Link}>
-                        News
+                        {t("home.news")}
                     </Nav.Link>
                     <Nav.Link
                         className="font-weight-bolder text-white"
