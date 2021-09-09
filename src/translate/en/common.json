@@ -5,5 +5,6 @@
     },
     "register": "register",
     "dontHaveAccount": "Don't have account?",
-    "backToHomepage": "Back to home page"
+    "backToHomepage": "Back to home page",
+    "about": "About"
 }

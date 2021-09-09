@@ -28,7 +28,7 @@ const NavbarV2 = () => {
                         Dashboard
                     </Nav.Link>
                     <Nav.Link className="font-weight-bolder text-white" to="/about" as={Link}>
-                        About
+                        {t("about")}
                     </Nav.Link>
                     <Nav.Link className="font-weight-bolder text-white" to="/portal/news" as={Link}>
                         {t("home.news")}
