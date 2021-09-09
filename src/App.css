@@ -205,3 +205,15 @@ button.post-button.btn:active {
 .filter__menu-list .filter__option--is-focused{
 	background-color: darkorange;
 }
+
+.country-languages{
+	background-color: gray;	
+}
+
+.country-languages button{
+	color: white;
+}
+
+.country-languages ul li{
+	color: black;
+}

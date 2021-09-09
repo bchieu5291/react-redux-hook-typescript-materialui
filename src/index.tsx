@@ -25,89 +25,107 @@ import DashBoard from "Portal/DashBoard";
 import PortalResizeImage from "./Portal/PortalResizeImage";
 import { ChakraProvider } from "@chakra-ui/react";
 import ClassificationContextProvider from "contexts/ClassificationContext";
+import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
+import common_en from "translate/en/common.json";
+import common_vi from "translate/vi/common.json";
 
+i18next.init({
+    interpolation: { escapeValue: false }, // React already does escaping
+    lng: "en", // language to use
+    resources: {
+        en: {
+            common: common_en, // 'common' is our custom namespace
+        },
+        vi: {
+            common: common_vi,
+        },
+    },
+});
 ReactDOM.render(
     <React.StrictMode>
-        <ClassificationContextProvider>
-            <CardDetailContextProvider>
-                <TopMovieContextProvier>
-                    <AuthContextProvider>
-                        <PostContextProvider>
-                            <NewsContextProvider>
-                                <MovieContextProvider>
-                                    <ThemeContextProvider>
-                                        <ProgressContextProvider>
-                                            <Router>
-                                                <Switch>
-                                                    <Route
-                                                        exact
-                                                        path="/"
-                                                        component={NewsPage}
-                                                    ></Route>
-                                                    <Route
-                                                        path="/news/:id"
-                                                        component={NewsDetailPages}
-                                                    ></Route>
-                                                    <Route
-                                                        exact
-                                                        path="/login"
-                                                        render={(props) => (
-                                                            <AuthTemplate
-                                                                {...props}
-                                                                authRoute="login"
-                                                            />
-                                                        )}
-                                                    ></Route>
-                                                    <Route
-                                                        exact
-                                                        path="/register"
-                                                        render={(props) => (
-                                                            <AuthTemplate
-                                                                {...props}
-                                                                authRoute="register"
-                                                            />
-                                                        )}
-                                                    ></Route>
-                                                    <ProtectedRoute
-                                                        exact
-                                                        path="/portal"
-                                                        component={Portal}
-                                                    ></ProtectedRoute>
-                                                    <ProtectedRoute
-                                                        exact
-                                                        path="/about"
-                                                        component={About}
-                                                    ></ProtectedRoute>
-                                                    <ProtectedRoute
-                                                        exact
-                                                        path="/portal/news"
-                                                        component={NewsListing}
-                                                    ></ProtectedRoute>
-                                                    <ProtectedRoute
-                                                        exact
-                                                        path="/portal/resize-image"
-                                                        component={PortalResizeImage}
-                                                    ></ProtectedRoute>
-                                                    <Route path="/dashboard">
-                                                        <DashBoard />
-                                                    </Route>
-                                                    <Route path="/card-detail">
-                                                        <CardDetail />
-                                                    </Route>
-                                                    <Route path="/movie-listing">
-                                                        <CardDetail />
-                                                    </Route>
-                                                </Switch>
-                                            </Router>
-                                        </ProgressContextProvider>
-                                    </ThemeContextProvider>
-                                </MovieContextProvider>
-                            </NewsContextProvider>
-                        </PostContextProvider>
-                    </AuthContextProvider>
-                </TopMovieContextProvier>
-            </CardDetailContextProvider>
-        </ClassificationContextProvider>
+        <I18nextProvider i18n={i18next}>
+            <ClassificationContextProvider>
+                <CardDetailContextProvider>
+                    <TopMovieContextProvier>
+                        <AuthContextProvider>
+                            <PostContextProvider>
+                                <NewsContextProvider>
+                                    <MovieContextProvider>
+                                        <ThemeContextProvider>
+                                            <ProgressContextProvider>
+                                                <Router>
+                                                    <Switch>
+                                                        <Route
+                                                            exact
+                                                            path="/"
+                                                            component={NewsPage}
+                                                        ></Route>
+                                                        <Route
+                                                            path="/news/:id"
+                                                            component={NewsDetailPages}
+                                                        ></Route>
+                                                        <Route
+                                                            exact
+                                                            path="/login"
+                                                            render={(props) => (
+                                                                <AuthTemplate
+                                                                    {...props}
+                                                                    authRoute="login"
+                                                                />
+                                                            )}
+                                                        ></Route>
+                                                        <Route
+                                                            exact
+                                                            path="/register"
+                                                            render={(props) => (
+                                                                <AuthTemplate
+                                                                    {...props}
+                                                                    authRoute="register"
+                                                                />
+                                                            )}
+                                                        ></Route>
+                                                        <ProtectedRoute
+                                                            exact
+                                                            path="/portal"
+                                                            component={Portal}
+                                                        ></ProtectedRoute>
+                                                        <ProtectedRoute
+                                                            exact
+                                                            path="/about"
+                                                            component={About}
+                                                        ></ProtectedRoute>
+                                                        <ProtectedRoute
+                                                            exact
+                                                            path="/portal/news"
+                                                            component={NewsListing}
+                                                        ></ProtectedRoute>
+                                                        <ProtectedRoute
+                                                            exact
+                                                            path="/portal/resize-image"
+                                                            component={PortalResizeImage}
+                                                        ></ProtectedRoute>
+                                                        <Route path="/dashboard">
+                                                            <DashBoard />
+                                                        </Route>
+                                                        <Route path="/card-detail">
+                                                            <CardDetail />
+                                                        </Route>
+                                                        <Route path="/movie-listing">
+                                                            <CardDetail />
+                                                        </Route>
+                                                    </Switch>
+                                                </Router>
+                                            </ProgressContextProvider>
+                                        </ThemeContextProvider>
+                                    </MovieContextProvider>
+                                </NewsContextProvider>
+                            </PostContextProvider>
+                        </AuthContextProvider>
+                    </TopMovieContextProvier>
+                </CardDetailContextProvider>
+            </ClassificationContextProvider>
+        </I18nextProvider>
     </React.StrictMode>,
     document.getElementById("root")
 );

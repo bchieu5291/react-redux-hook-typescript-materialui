@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import ReactFlagsSelect from "react-flags-select";
 
 const PublicNavbar = () => {
+    const [t, i18n] = useTranslation("common");
+    const [selected, setSelected] = useState("US");
+
+    const onChangeLanguage = (code: any) => {
+        setSelected(code);
+        if (code === "US") i18n.changeLanguage("en");
+        if (code === "VN") i18n.changeLanguage("vi");
+    };
+
     return (
         <Navbar bg="secondary" expand="lg" variant="dark">
             <Navbar.Brand to="/" as={Link} className="text-white">
@@ -13,7 +24,7 @@ const PublicNavbar = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link className="font-weight-bolder text-white" to="/login" as={Link}>
-                        News
+                        {t("home.news")}
                     </Nav.Link>
                     <Nav.Link
                         className="font-weight-bolder text-white"
@@ -24,8 +35,16 @@ const PublicNavbar = () => {
                     </Nav.Link>
                 </Nav>
                 <Nav>
+                    <ReactFlagsSelect
+                        selected={selected}
+                        className="country-languages "
+                        countries={["US", "VN"]}
+                        customLabels={{ US: "USA", VN: "Vietnam" }}
+                        placeholder="Select Language"
+                        onSelect={(code: any) => onChangeLanguage(code)}
+                    />
                     <Nav.Link className="font-weight-bolder text-white" to="/login" as={Link}>
-                        Login
+                        {t("home.login")}
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
