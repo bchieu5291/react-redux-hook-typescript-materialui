@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -8,8 +8,17 @@ const PublicNavbar = () => {
     const [t, i18n] = useTranslation("common");
     const [selected, setSelected] = useState("US");
 
+    useEffect(() => {
+        const language = localStorage.getItem("i18nextLng");
+        if (language) {
+            if (language === "en") setSelected("US");
+            if (language === "vi") setSelected("VN");
+        }
+    }, []);
+
     const onChangeLanguage = (code: any) => {
         setSelected(code);
+        localStorage.setItem("language", code);
         if (code === "US") i18n.changeLanguage("en");
         if (code === "VN") i18n.changeLanguage("vi");
     };

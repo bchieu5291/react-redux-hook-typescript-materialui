@@ -2,5 +2,8 @@
     "home": {
         "news": "Tin tức",
         "login": "Đăng nhập"
-    }
+    },
+    "register": "Đăng ký",
+    "dontHaveAccount": "Quên mật khẩu?",
+    "backToHomepage": "Trở về trang chủ"
 }

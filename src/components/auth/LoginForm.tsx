@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
 import { UserForm } from "model/AuthForm";
 import AlertMessage, { IAlert } from "components/Shared/AlertMessage";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
     //state
@@ -16,6 +17,9 @@ const LoginForm = () => {
         type: "",
         message: "",
     });
+
+    //use translate
+    const [t] = useTranslation("common");
 
     //router
     const history = useHistory();
@@ -74,16 +78,16 @@ const LoginForm = () => {
                 </Button>
             </Form>
             <p>
-                Don't have account?
+                {t("dontHaveAccount")}
                 <Link to="/register">
                     <Button variant="info" size="sm" type="submit" className="ml-2">
-                        Register
+                        {t("register")}
                     </Button>
                 </Link>
             </p>
             <p>
                 <Link to="/">
-                    <p>Back to Homepage</p>
+                    <p>{t("backToHomepage")}</p>
                 </Link>
             </p>
         </>

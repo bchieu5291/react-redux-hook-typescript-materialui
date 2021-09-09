@@ -2,5 +2,8 @@
     "home": {
         "news": "News",
         "login": "Login"
-    }
+    },
+    "register": "register",
+    "dontHaveAccount": "Don't have account?",
+    "backToHomepage": "Back to home page"
 }

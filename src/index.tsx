@@ -7,7 +7,7 @@ import ProgressContextProvider from "contexts/ProgressContext";
 import ThemeContextProvider from "contexts/ThemeContext";
 import TopMovieContextProvier from "contexts/TopMovieContext";
 import NewsPage from "PublicPages/NewsPage";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
@@ -27,12 +27,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ClassificationContextProvider from "contexts/ClassificationContext";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import common_en from "translate/en/common.json";
 import common_vi from "translate/vi/common.json";
 
-i18next.init({
+i18next.use(LanguageDetector).init({
     interpolation: { escapeValue: false }, // React already does escaping
-    lng: "en", // language to use
     resources: {
         en: {
             common: common_en, // 'common' is our custom namespace
@@ -42,6 +42,7 @@ i18next.init({
         },
     },
 });
+
 ReactDOM.render(
     <React.StrictMode>
         <I18nextProvider i18n={i18next}>
