@@ -24,7 +24,7 @@ const NewsDetailPages = () => {
 
     //Start: Get all news
     useEffect(() => {
-        getNews();
+        getNews(undefined, undefined, undefined, 15);
     }, [params]);
 
     useEffect(() => {
