@@ -27,7 +27,8 @@ const SelectDropdownField = (props: Props) => {
         <Form.Group className="mb-3">
             {label && <label>{label}</label>}
             <Select
-                value={value}
+                value={props.options.filter((t) => value.some((z: any) => z.value === t.value))}
+                //value={value}
                 classNamePrefix="filter"
                 options={props.options}
                 isMulti={true}

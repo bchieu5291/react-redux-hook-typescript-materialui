@@ -1,27 +1,18 @@
+import addIcon from "assets/plus-circle-fill.svg";
+import InputField from "components/custom/InputField";
+import SelectDropdownField from "components/custom/SelectDropdownField";
 import AddNewsModal from "components/news/AddNewsModal";
 import SingleNews from "components/news/SingleNews";
-import { NewsContext } from "contexts/NewsContext";
-import React, { useContext, useEffect, useState } from "react";
-import {
-    Button,
-    Col,
-    FormControl,
-    OverlayTrigger,
-    Pagination,
-    Row,
-    Tooltip,
-} from "react-bootstrap";
-import addIcon from "assets/plus-circle-fill.svg";
 import UpdateNewsModal from "components/news/UpdateNewsModal";
-import { Link, useParams, useLocation, useHistory } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
-import { default as Select, OptionsType } from "react-select";
 import { ClassificationContext } from "contexts/ClassificationContext";
-import { Classification } from "reducers/classificationReducer";
-import InputField from "components/custom/InputField";
-import { FastField, Field, Form, Formik } from "formik";
-import SelectDropdownField from "components/custom/SelectDropdownField";
+import { NewsContext } from "contexts/NewsContext";
+import { Field, Form, Formik, FormikProps } from "formik";
 import qs from "querystring";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Button, Col, OverlayTrigger, Pagination, Row, Tooltip } from "react-bootstrap";
+import { useHistory, useLocation } from "react-router-dom";
+import { OptionsType } from "react-select";
+import { Classification } from "reducers/classificationReducer";
 
 const NewsListing = () => {
     const [selectedClassifications, setSelectedClassifications] = useState<
@@ -49,6 +40,8 @@ const NewsListing = () => {
         getClassifications();
     }, []);
 
+    const formikRef = useRef<any>(null);
+
     //Get all news when url change
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -60,11 +53,32 @@ const NewsListing = () => {
             undefined
         );
         window.scrollTo(0, 0);
+        // initialValues.title = params.title;
+
+        // initialValues.classifications =
+        //     params.classifications?.split(",").map(
+        //         (t) =>
+        //             ({
+        //                 value: t,
+        //             } as Classification)
+        //     ) ?? [];
+        if (formikRef.current) {
+            formikRef.current.setFieldValue("title", params.title ?? "");
+            formikRef.current.setFieldValue(
+                "classifications",
+                params.classifications?.split(",").map(
+                    (t) =>
+                        ({
+                            value: t,
+                        } as Classification)
+                ) ?? []
+            );
+        }
     }, [location]);
 
-    const initialValues = {
+    let initialValues = {
         title: "",
-        classifications: [],
+        classifications: [] as Classification[],
     };
 
     const onClickApplySearch = async (values: any) => {
@@ -75,7 +89,9 @@ const NewsListing = () => {
         });
     };
 
-    const handleReset = () => {
+    const handleReset = (setFieldValue: any) => {
+        setFieldValue("title", "");
+        setFieldValue("classifications", []);
         router.push({
             search: ``, // query string
         });
@@ -121,11 +137,16 @@ const NewsListing = () => {
         );
     }
 
-    return (
-        <div>
-            <Formik initialValues={initialValues} onSubmit={onClickApplySearch}>
+    let filter = null;
+    filter = (
+        <>
+            <Formik
+                innerRef={formikRef}
+                initialValues={initialValues}
+                onSubmit={onClickApplySearch}
+            >
                 {(formikProps) => {
-                    const { values, errors, touched, handleSubmit, resetForm } = formikProps;
+                    const { values, errors, touched, handleSubmit, setFieldValue } = formikProps;
                     console.log({ values, errors, touched });
                     return (
                         <>
@@ -137,7 +158,7 @@ const NewsListing = () => {
                             >
                                 <Row className="mx-auto mt-4">
                                     <Col xs lg="4">
-                                        <FastField
+                                        <Field
                                             name="title"
                                             component={InputField}
                                             label="Title"
@@ -164,10 +185,7 @@ const NewsListing = () => {
                                             variant="primary"
                                             type="button"
                                             className="mr-2"
-                                            onClick={() => {
-                                                handleReset();
-                                                resetForm();
-                                            }}
+                                            onClick={handleReset.bind(this, setFieldValue)}
                                         >
                                             Clear
                                         </Button>
@@ -178,6 +196,12 @@ const NewsListing = () => {
                     );
                 }}
             </Formik>
+        </>
+    );
+
+    return (
+        <div>
+            {filter}
             {newsDetail !== null && <UpdateNewsModal />}
             <AddNewsModal />
             {body}
