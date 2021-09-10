@@ -15,7 +15,7 @@ interface Props {
 
 interface ContextDefault {
     newsState: NewsReducerState;
-    getNews: () => void;
+    getNews: (title?: string, classifications?: string, page?: number, length?: number) => void;
     addNews: (newNews: FormData) => any;
     showAddNewsModal: boolean;
     setShowAddNewsModal: (showAddNewsModal: boolean) => void;
@@ -43,6 +43,9 @@ const defaultData: NewsReducerState = {
     newsDetail: defaultPostData,
     newsListing: [],
     newsListingLoading: false,
+    totalPages: 0,
+    currentPage: 0,
+    total: 0,
 };
 
 const defaultToastData: IToast = {
@@ -78,13 +81,27 @@ const NewsContextProvider = ({ children }: Props) => {
     // });
 
     //get News
-    const getNews = async () => {
+    const getNews = async (
+        title?: string,
+        classifications?: string,
+        page?: number,
+        length?: number
+    ) => {
         try {
-            const response = await axios.get(`${apiUrl}/news`);
+            const response = await axios.get(
+                `${apiUrl}/news?title=${title ?? ""}&classifications=${
+                    classifications ?? []
+                }&page=${page ?? 0}&length=${length ?? 0}`
+            );
             if (response.data.success) {
                 dispatch({
                     type: NEWS_LOADED_SUCCESS,
-                    payload: response.data.news,
+                    payload: {
+                        newsListing: response.data.news.docs,
+                        totalPages: response.data.news.totalPages,
+                        currentPage: response.data.news.page,
+                        total: response.data.news.totalDocs,
+                    },
                 });
             }
         } catch (error: any) {

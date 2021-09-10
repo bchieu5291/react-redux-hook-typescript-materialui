@@ -26,12 +26,20 @@ export interface NewsReducerState {
     newsListing: News[];
     newsListingLoading: boolean;
     newsDetail: News;
+    totalPages: number;
+    currentPage: number;
+    total: number;
 }
 
 type PostAction =
     | {
           type: typeof NEWS_LOADED_SUCCESS;
-          payload: News[];
+          payload: {
+              newsListing: News[];
+              totalPages: number;
+              currentPage: number;
+              total: number;
+          };
       }
     | {
           type: typeof NEWS_LOADED_FAIL;
@@ -59,8 +67,11 @@ export const newsReducer = (state: NewsReducerState, action: PostAction) => {
         case NEWS_LOADED_SUCCESS:
             return {
                 ...state,
-                newsListing: action.payload,
+                newsListing: action.payload.newsListing,
                 newsListingLoading: false,
+                totalPages: action.payload.totalPages,
+                currentPage: action.payload.currentPage,
+                total: action.payload.total,
             };
         case ADD_NEWS:
             return {

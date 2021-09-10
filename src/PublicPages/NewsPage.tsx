@@ -21,7 +21,7 @@ const NewsPage = () => {
 
     //Start: Get all news
     useEffect(() => {
-        getNews();
+        getNews(undefined, undefined, undefined, 5);
     }, []);
 
     const choosePost = (newId: string) => {
