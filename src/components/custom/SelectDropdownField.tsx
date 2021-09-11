@@ -39,8 +39,8 @@ const SelectDropdownField = (props: Props) => {
                 onChange={(selectedOption) => {
                     form.setFieldValue("classifications", selectedOption);
                 }}
-                className={showError ? "is-invaid" : ""}
             />
+            <div className={showError ? "is-invalid" : ""}></div>
             <ErrorMessage name={name} component={FormFeedback}></ErrorMessage>
         </Form.Group>
     );
