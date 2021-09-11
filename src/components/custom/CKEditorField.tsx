@@ -1,6 +1,8 @@
-import React from "react";
-import { Form, FormGroup } from "react-bootstrap";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { ErrorMessage } from "formik";
+import React from "react";
+import { Form } from "react-bootstrap";
+import { FormFeedback } from "reactstrap";
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 
 interface Props {
@@ -23,6 +25,8 @@ const defaultProps: Props = {
 const CKEditorField = (props: Props) => {
     const { field, form, type, label, placeholder, disabled } = props;
     const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
+    const showError = errors[name] && touched[name];
 
     return (
         <Form.Group>
@@ -39,6 +43,8 @@ const CKEditorField = (props: Props) => {
                     editor.ui.view.editable.element.style.backgroundColor = "black";
                 }}
             ></CKEditor>
+            <div className={showError ? "is-invalid" : ""}></div>
+            <ErrorMessage name={name} component={FormFeedback}></ErrorMessage>
         </Form.Group>
     );
 };

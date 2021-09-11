@@ -1,5 +1,7 @@
+import { ErrorMessage } from "formik";
 import React, { ReactEventHandler } from "react";
 import { Form, FormGroup, InputGroup } from "react-bootstrap";
+import { FormFeedback } from "reactstrap";
 
 interface Props {
     field?: any;
@@ -21,6 +23,9 @@ const defaultProps: Props = {
 const UploadFileField = (props: Props) => {
     const { field, form, type, label, placeholder, disabled } = props;
     const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
+    const showError = errors[name] && touched[name];
+    const invalidClass = showError ? "is-invaid" : "";
 
     return (
         <Form.Group className="mb-3">
@@ -31,13 +36,16 @@ const UploadFileField = (props: Props) => {
                     id={name}
                     name={name}
                     type={type}
-                    className="form-control"
+                    className={`form-control ${invalidClass}`}
+                    value={value}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         const files = event.target.files as FileList;
                         let myFiles = Array.from(files);
                         form.setFieldValue("image", myFiles);
                     }}
                 />
+                <div className={showError ? "is-invalid" : ""}></div>
+                <ErrorMessage name={name} component={FormFeedback}></ErrorMessage>
             </InputGroup>
         </Form.Group>
     );

@@ -1,5 +1,7 @@
+import { ErrorMessage } from "formik";
 import { Form, FormGroup, InputGroup } from "react-bootstrap";
 import { default as Select } from "react-select";
+import { FormFeedback } from "reactstrap";
 import { Classification } from "reducers/classificationReducer";
 
 interface Props {
@@ -22,6 +24,8 @@ const defaultProps: Props = {
 const SelectDropdownField = (props: Props) => {
     const { field, form, label, placeholder, disabled } = props;
     const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
+    const showError = errors[name] && touched[name];
 
     return (
         <Form.Group className="mb-3">
@@ -35,7 +39,9 @@ const SelectDropdownField = (props: Props) => {
                 onChange={(selectedOption) => {
                     form.setFieldValue("classifications", selectedOption);
                 }}
+                className={showError ? "is-invaid" : ""}
             />
+            <ErrorMessage name={name} component={FormFeedback}></ErrorMessage>
         </Form.Group>
     );
 };

@@ -5,6 +5,7 @@ import { Classification, ClassificationReponse } from "./classificationReducer";
 
 const {
     NEWS_LOADED_SUCCESS,
+    NEWS_LOADED_MORE_SUCCESS,
     NEWS_LOADED_FAIL,
     ADD_NEWS,
     DELETE_NEWS,
@@ -42,6 +43,15 @@ type PostAction =
           };
       }
     | {
+          type: typeof NEWS_LOADED_MORE_SUCCESS;
+          payload: {
+              newsListing: News[];
+              totalPages: number;
+              currentPage: number;
+              total: number;
+          };
+      }
+    | {
           type: typeof NEWS_LOADED_FAIL;
           payload: News[];
       }
@@ -68,6 +78,15 @@ export const newsReducer = (state: NewsReducerState, action: PostAction) => {
             return {
                 ...state,
                 newsListing: action.payload.newsListing,
+                newsListingLoading: false,
+                totalPages: action.payload.totalPages,
+                currentPage: action.payload.currentPage,
+                total: action.payload.total,
+            };
+        case NEWS_LOADED_MORE_SUCCESS:
+            return {
+                ...state,
+                newsListing: [...state.newsListing, ...action.payload.newsListing],
                 newsListingLoading: false,
                 totalPages: action.payload.totalPages,
                 currentPage: action.payload.currentPage,

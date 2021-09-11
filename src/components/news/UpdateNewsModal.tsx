@@ -11,6 +11,7 @@ import CKEditorField from "./../custom/CKEditorField";
 import { Classification } from "reducers/classificationReducer";
 import SelectDropdownField from "components/custom/SelectDropdownField";
 import { ClassificationContext } from "contexts/ClassificationContext";
+import * as Yup from "yup";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 
@@ -51,6 +52,12 @@ const UpdateNewsModal = () => {
         setShowUpdateNewsModal(false);
     };
 
+    const validationSchema = Yup.object().shape({
+        title: Yup.string().required("Required field."),
+        description: Yup.string().required("Required field."),
+        classifications: Yup.array().min(1, "Required field."),
+    });
+
     const onSubmit = async (values: IAddNews) => {
         try {
             let _formData = new FormData();
@@ -76,7 +83,11 @@ const UpdateNewsModal = () => {
                 <Modal.Title>Update News</Modal.Title>
             </Modal.Header>
 
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+            >
                 {(formikProps) => {
                     const { values, errors, touched, handleSubmit } = formikProps;
                     console.log({ values, errors, touched });

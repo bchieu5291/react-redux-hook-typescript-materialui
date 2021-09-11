@@ -7,7 +7,14 @@ import { Post } from "../reducers/postReducer";
 import { IToast } from "model/AuthForm";
 import { News, newsReducer, NewsReducerState } from "reducers/newsReducer";
 
-const { NEWS_LOADED_SUCCESS, ADD_NEWS, DELETE_NEWS, UPDATE_NEWS, FIND_NEWS_BY_ID } = NewsActionType;
+const {
+    NEWS_LOADED_SUCCESS,
+    NEWS_LOADED_MORE_SUCCESS,
+    ADD_NEWS,
+    DELETE_NEWS,
+    UPDATE_NEWS,
+    FIND_NEWS_BY_ID,
+} = NewsActionType;
 
 interface Props {
     children: ReactNode;
@@ -15,7 +22,13 @@ interface Props {
 
 interface ContextDefault {
     newsState: NewsReducerState;
-    getNews: (title?: string, classifications?: string, page?: number, length?: number) => void;
+    getNews: (
+        title?: string,
+        classifications?: string,
+        page?: number,
+        length?: number,
+        isLoadMore?: boolean
+    ) => void;
     addNews: (newNews: FormData) => any;
     showAddNewsModal: boolean;
     setShowAddNewsModal: (showAddNewsModal: boolean) => void;
@@ -85,7 +98,8 @@ const NewsContextProvider = ({ children }: Props) => {
         title?: string,
         classifications?: string,
         page?: number,
-        length?: number
+        length?: number,
+        isLoadMore?: boolean
     ) => {
         try {
             const response = await axios.get(
@@ -94,15 +108,27 @@ const NewsContextProvider = ({ children }: Props) => {
                 }&page=${page ?? 0}&length=${length ?? 0}`
             );
             if (response.data.success) {
-                dispatch({
-                    type: NEWS_LOADED_SUCCESS,
-                    payload: {
-                        newsListing: response.data.news.docs,
-                        totalPages: response.data.news.totalPages,
-                        currentPage: response.data.news.page,
-                        total: response.data.news.totalDocs,
-                    },
-                });
+                if (!isLoadMore) {
+                    dispatch({
+                        type: NEWS_LOADED_SUCCESS,
+                        payload: {
+                            newsListing: response.data.news.docs,
+                            totalPages: response.data.news.totalPages,
+                            currentPage: response.data.news.page,
+                            total: response.data.news.totalDocs,
+                        },
+                    });
+                } else {
+                    dispatch({
+                        type: NEWS_LOADED_MORE_SUCCESS,
+                        payload: {
+                            newsListing: response.data.news.docs,
+                            totalPages: response.data.news.totalPages,
+                            currentPage: response.data.news.page,
+                            total: response.data.news.totalDocs,
+                        },
+                    });
+                }
             }
         } catch (error: any) {
             return error.response.data

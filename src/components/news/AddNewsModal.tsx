@@ -3,11 +3,12 @@ import SelectDropdownField from "components/custom/SelectDropdownField";
 import UploadFileField from "components/custom/UploadFileField";
 import { ClassificationContext } from "contexts/ClassificationContext";
 import { NewsContext } from "contexts/NewsContext";
-import { FastField, Formik } from "formik";
+import { FastField, Formik, yupToFormErrors } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Classification } from "reducers/classificationReducer";
 import CKEditorField from "./../custom/CKEditorField";
+import * as Yup from "yup";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 
@@ -35,6 +36,13 @@ const AddNewsModal = () => {
         image: [],
         classifications: [],
     };
+
+    const validationSchema = Yup.object().shape({
+        title: Yup.string().required("Required field."),
+        description: Yup.string().required("Required field."),
+        classifications: Yup.array().min(1, "Required field."),
+        image: Yup.array().min(1, "Required field."),
+    });
 
     const resetAddNewsData = () => {
         setShowAddNewsModal(false);
@@ -77,7 +85,11 @@ const AddNewsModal = () => {
                 <Modal.Title>Create News</Modal.Title>
             </Modal.Header>
 
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+            >
                 {(formikProps) => {
                     const { values, errors, touched, handleSubmit } = formikProps;
                     console.log({ values, errors, touched });

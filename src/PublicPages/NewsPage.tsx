@@ -4,13 +4,13 @@ import PublicNavbar from "components/Shared/PublicNavbar";
 import PublicTemplate from "components/Template/PublicTemplate";
 import { NewsContext } from "contexts/NewsContext";
 import React, { useContext, useEffect } from "react";
-import { Button, Nav } from "react-bootstrap";
+import { Button, Col, Nav, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Moment from "moment";
 
 const NewsPage = () => {
     const {
-        newsState: { newsListing, newsListingLoading, newsDetail },
+        newsState: { newsListing, newsListingLoading, newsDetail, total, currentPage },
         getNews,
         setShowAddNewsModal,
     } = useContext(NewsContext);
@@ -26,6 +26,10 @@ const NewsPage = () => {
 
     const choosePost = (newId: string) => {
         findNews(newId);
+    };
+
+    const handleLoadmore = () => {
+        getNews(undefined, undefined, currentPage + 1, 5, true);
     };
 
     const regex = /(<([^>]+)>)/gi;
@@ -132,6 +136,17 @@ const NewsPage = () => {
         }
     }
 
+    let loadMore = null;
+    if (newsListing.length < total) {
+        loadMore = (
+            <Row className="mx-auto mb-4 justify-content-center text-center">
+                <Col xs lg="6">
+                    <Button onClick={handleLoadmore}>Load more...</Button>
+                </Col>
+            </Row>
+        );
+    }
+
     return (
         <PublicTemplate>
             <PublicHeader />
@@ -143,6 +158,7 @@ const NewsPage = () => {
                     </div>
                 </div>
             </div>
+            {loadMore}
         </PublicTemplate>
     );
 };
