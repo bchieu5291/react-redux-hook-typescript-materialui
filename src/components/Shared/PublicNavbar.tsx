@@ -42,6 +42,13 @@ const PublicNavbar = () => {
                     >
                         NextJS
                     </Nav.Link>
+                    <Nav.Link
+                        className="font-weight-bolder text-white"
+                        href="http://vue.georgedev.info"
+                        target="_blank"
+                    >
+                        Vue
+                    </Nav.Link>
                 </Nav>
                 <Nav>
                     <ReactFlagsSelect
