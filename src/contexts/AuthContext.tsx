@@ -69,7 +69,6 @@ const AuthContextProvider = ({ children }: Props) => {
         console.log(process.env);
         console.log(process.env.REACT_APP_SITE_ENV);
         loadUser();
-        return () => {};
     }, []);
 
     const loginUser = async (userForm: UserForm) => {
@@ -80,7 +79,7 @@ const AuthContextProvider = ({ children }: Props) => {
             }
             await loadUser(); //update reducer
             return response.data;
-        } catch (error) {
+        } catch (error: any) {
             if (error.response.data) {
                 return error.response.data;
             } else {
@@ -97,7 +96,7 @@ const AuthContextProvider = ({ children }: Props) => {
             }
             await loadUser(); //update reducer
             return response.data;
-        } catch (error) {
+        } catch (error: any) {
             if (error.response.data) {
                 return error.response.data;
             } else {
