@@ -1,50 +1,55 @@
-import ActionButtons from "components/posts/ActionButtons";
-import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import { News } from "reducers/newsReducer";
+import ActionButtons from 'components/posts/ActionButtons'
+import React from 'react'
+import { Card, Col, Row } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { News } from 'reducers/newsReducer'
+import { getTextContent4Multilanguage } from 'ultilities/helper'
 
 const SingleNews = (news: News) => {
-    const regex = /(<([^>]+)>)/gi;
+    const regex = /(<([^>]+)>)/gi
+    const [t, i18n] = useTranslation('common')
 
     const createMakeup = (htmlText: string) => {
-        return { __html: htmlText };
-    };
+        return { __html: htmlText }
+    }
 
     return (
-        <Row className="news-single-row">
+        <Row className='news-single-row'>
             <Col>
                 <Card>
-                    <Row className="no-gutters">
-                        <Col md="3">
+                    <Row className='no-gutters'>
+                        <Col md='3'>
                             <Card.Img
-                                className="news-item-image"
-                                variant="top"
+                                className='news-item-image'
+                                variant='top'
                                 src={`${news.imageFile.imageUrl}`}
                             />
                         </Col>
-                        <Col md="9">
+                        <Col md='9'>
                             <Card.Body>
-                                <Card.Title>{news.title}</Card.Title>
+                                <Card.Title>
+                                    {getTextContent4Multilanguage(news.title, i18n.language)}
+                                </Card.Title>
                                 {/* <Card.Subtitle>Card subtitle</Card.Subtitle> */}
                                 <Card.Text>
                                     {news.description.length > 150
                                         ? news.description
-                                              .replace(regex, "")
+                                              .replace(regex, '')
                                               .slice(0, 150)
-                                              .concat("...")
-                                        : news.description.replace(regex, "")}
+                                              .concat('...')
+                                        : news.description.replace(regex, '')}
                                 </Card.Text>
                                 <Card.Text>
                                     {news.classifications &&
                                         news.classifications.length > 0 &&
-                                        "Classification: " +
+                                        'Classification: ' +
                                             news.classifications
                                                 .map((item) => item.title)
-                                                .join(", ")}
+                                                .join(', ')}
                                 </Card.Text>
                             </Card.Body>
-                            <Row className="no-gutters">
-                                <Col className="text-right">
+                            <Row className='no-gutters'>
+                                <Col className='text-right'>
                                     <ActionButtons {...news} />
                                 </Col>
                             </Row>
@@ -53,7 +58,7 @@ const SingleNews = (news: News) => {
                 </Card>
             </Col>
         </Row>
-    );
-};
+    )
+}
 
-export default SingleNews;
+export default SingleNews

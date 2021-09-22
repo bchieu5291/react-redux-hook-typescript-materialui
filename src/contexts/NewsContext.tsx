@@ -5,7 +5,7 @@ import { NewsActionType } from 'reducers/types'
 import { apiUrl } from '../ultilities/constanst'
 import { Post } from '../reducers/postReducer'
 import { IToast } from 'model/AuthForm'
-import { News, newsReducer, NewsReducerState } from 'reducers/newsReducer'
+import { IAddUpdateNews, News, newsReducer, NewsReducerState } from 'reducers/newsReducer'
 
 const {
     NEWS_LOADED_SUCCESS,
@@ -39,7 +39,7 @@ interface ContextDefault {
     updateNews: (news: FormData) => any
 }
 
-const defaultPostData: News = {
+const defaultPostData: IAddUpdateNews = {
     _id: '',
     title: '',
     description: '',
@@ -168,7 +168,7 @@ const NewsContextProvider = ({ children }: Props) => {
         const news = newsState.newsListing.find((item) => item._id == newsId)
         dispatch({
             type: FIND_NEWS_BY_ID,
-            payload: news as News,
+            payload: news as IAddUpdateNews,
         })
     }
 

@@ -1,65 +1,70 @@
-import PublicTemplate from "components/Template/PublicTemplate";
-import { NewsContext } from "contexts/NewsContext";
-import React, { useContext, useEffect, useState } from "react";
-import { Nav } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
-import { News } from "reducers/newsReducer";
+import PublicTemplate from 'components/Template/PublicTemplate'
+import { NewsContext } from 'contexts/NewsContext'
+import React, { useContext, useEffect, useState } from 'react'
+import { Nav } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { Link, useParams } from 'react-router-dom'
+import { News } from 'reducers/newsReducer'
+import { getTextContent4Multilanguage } from 'ultilities/helper'
 
-const { CKEditor } = require("@ckeditor/ckeditor5-react");
+const { CKEditor } = require('@ckeditor/ckeditor5-react')
 
 interface IProps {
-    id: string;
+    id: string
 }
 
 const NewsDetailPages = () => {
-    const params = useParams<IProps>();
+    const params = useParams<IProps>()
     //context
     const {
         newsState: { newsListing, newsListingLoading, newsDetail },
         getNews,
         findNews,
-    } = useContext(NewsContext);
+    } = useContext(NewsContext)
+    const [t, i18n] = useTranslation('common')
 
-    const [relatedNews, setRelatedNews] = useState<News[]>([]);
+    const [relatedNews, setRelatedNews] = useState<News[]>([])
 
     //Start: Get all news
     useEffect(() => {
-        getNews(undefined, undefined, undefined, 15);
-    }, [params]);
+        getNews(undefined, undefined, undefined, 15)
+    }, [params])
 
     useEffect(() => {
-        findNews(params.id);
+        findNews(params.id)
 
         // Shuffle array
         const shuffled = newsListing
             .filter((t) => t._id != params.id)
-            .sort(() => 0.5 - Math.random());
-        var relatedItems = shuffled.slice(0, 4);
-        setRelatedNews(relatedItems);
-    }, [newsListing]);
+            .sort(() => 0.5 - Math.random())
+        var relatedItems = shuffled.slice(0, 4)
+        setRelatedNews(relatedItems)
+    }, [newsListing])
 
     return (
         <PublicTemplate>
             {newsDetail && (
-                <div className="container">
-                    <h1 className="my-4">{newsDetail.title}</h1>
+                <div className='container'>
+                    <h1 className='my-4'>
+                        {getTextContent4Multilanguage(newsDetail.title, i18n.language)}
+                    </h1>
 
-                    <div className="row">
-                        <div className="col-md-8">
+                    <div className='row'>
+                        <div className='col-md-8'>
                             <img
-                                className="img-fluid"
+                                className='img-fluid'
                                 src={`${newsDetail.imageFile.imageUrl.replace(
-                                    "-original",
-                                    "-detail"
+                                    '-original',
+                                    '-detail'
                                 )}`}
-                                alt=""
+                                alt=''
                             />
                         </div>
 
-                        <div className="col-md-4">
-                            <h3 className="my-3">Information</h3>
+                        <div className='col-md-4'>
+                            <h3 className='my-3'>Information</h3>
                             <div dangerouslySetInnerHTML={{ __html: newsDetail.description }} />
-                            <h3 className="my-3">Classifications</h3>
+                            <h3 className='my-3'>Classifications</h3>
                             <ul>
                                 {newsDetail.classifications.map((item) => (
                                     <li>{item.title}</li>
@@ -68,30 +73,30 @@ const NewsDetailPages = () => {
                         </div>
                     </div>
 
-                    <h3 className="my-4">Related Projects</h3>
-                    <div className="row">
+                    <h3 className='my-4'>Related Projects</h3>
+                    <div className='row'>
                         {relatedNews.map((item) => {
                             return (
-                                <div key={item._id} className="col-md-3 col-sm-6 mb-4">
+                                <div key={item._id} className='col-md-3 col-sm-6 mb-4'>
                                     <Link to={`/news/${item._id}`}>
                                         <img
-                                            className="img-fluid"
+                                            className='img-fluid'
                                             src={item.imageFile.imageUrl.replace(
-                                                "-original",
-                                                "-related"
+                                                '-original',
+                                                '-related'
                                             )}
-                                            alt=""
+                                            alt=''
                                         />
                                     </Link>
                                     <Link to={`/news/${item._id}`}>{item.title}</Link>
                                 </div>
-                            );
+                            )
                         })}
                     </div>
                 </div>
             )}
         </PublicTemplate>
-    );
-};
+    )
+}
 
-export default NewsDetailPages;
+export default NewsDetailPages

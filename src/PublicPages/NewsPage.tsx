@@ -7,6 +7,8 @@ import React, { useContext, useEffect } from 'react'
 import { Button, Col, Nav, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Moment from 'moment'
+import { useTranslation } from 'react-i18next'
+import { getTextContent4Multilanguage } from 'ultilities/helper'
 
 const NewsPage = () => {
     const {
@@ -15,8 +17,9 @@ const NewsPage = () => {
         setShowAddNewsModal,
     } = useContext(NewsContext)
 
-    const { findNews } = useContext(NewsContext)
+    const [t, i18n] = useTranslation('common')
 
+    const { findNews } = useContext(NewsContext)
     Moment.locale('en')
 
     //Start: Get all news
@@ -61,7 +64,9 @@ const NewsPage = () => {
                         <div className='small text-muted'>
                             {Moment(firstNews.createAt).format('DD MMM yyyy hh:mm:ss')}
                         </div>
-                        <h2 className='card-title'>{firstNews.title}</h2>
+                        <h2 className='card-title'>
+                            {getTextContent4Multilanguage(firstNews.title, i18n.language)}
+                        </h2>
                         <p className='card-text'>
                             {' '}
                             {firstNews.description.length > 150
@@ -111,7 +116,9 @@ const NewsPage = () => {
                             <div className='small text-muted'>
                                 {Moment(newsItem.createAt).format('DD MMM yyyy hh:mm:ss')}
                             </div>
-                            <h2 className='card-title'>{newsItem.title}</h2>
+                            <h2 className='card-title'>
+                                {getTextContent4Multilanguage(newsItem.title, i18n.language)}
+                            </h2>
                             <p className='card-text'>
                                 {' '}
                                 {newsItem.description.length > 150
