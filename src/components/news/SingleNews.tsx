@@ -3,7 +3,7 @@ import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { News } from 'reducers/newsReducer'
-import { getTextContent4Multilanguage } from 'ultilities/helper'
+import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
 
 const SingleNews = (news: News) => {
     const regex = /(<([^>]+)>)/gi
@@ -32,12 +32,11 @@ const SingleNews = (news: News) => {
                                 </Card.Title>
                                 {/* <Card.Subtitle>Card subtitle</Card.Subtitle> */}
                                 <Card.Text>
-                                    {news.description.length > 150
-                                        ? news.description
-                                              .replace(regex, '')
-                                              .slice(0, 150)
-                                              .concat('...')
-                                        : news.description.replace(regex, '')}
+                                    {getLongTextContent4Multilanguage(
+                                        news.description,
+                                        i18n.language,
+                                        150
+                                    )}
                                 </Card.Text>
                                 <Card.Text>
                                     {news.classifications &&

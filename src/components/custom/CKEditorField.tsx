@@ -1,54 +1,58 @@
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { ErrorMessage } from "formik";
-import React from "react";
-import { Form } from "react-bootstrap";
-import { FormFeedback } from "reactstrap";
-const { CKEditor } = require("@ckeditor/ckeditor5-react");
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { ErrorMessage } from 'formik'
+import React from 'react'
+import { Form } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { FormFeedback } from 'reactstrap'
+import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
+const { CKEditor } = require('@ckeditor/ckeditor5-react')
 
 interface Props {
-    field?: any;
-    form?: any;
+    field?: any
+    form?: any
 
-    type: string;
-    label: string;
-    placeholder: string;
-    disabled: boolean;
+    type: string
+    label: string
+    placeholder: string
+    disabled: boolean
 }
 
 const defaultProps: Props = {
-    type: "text",
-    label: "",
-    placeholder: "",
+    type: 'text',
+    label: '',
+    placeholder: '',
     disabled: false,
-};
+}
 
 const CKEditorField = (props: Props) => {
-    const { field, form, type, label, placeholder, disabled } = props;
-    const { name, value, onChange, onBlur } = field;
-    const { errors, touched } = form;
-    const showError = errors[name] && touched[name];
+    const { field, form, type, label, placeholder, disabled } = props
+    const { name, value, onChange, onBlur } = field
+    const { errors, touched } = form
+    const showError = errors[name] && touched[name]
+
+    const [t, i18n] = useTranslation('common')
 
     return (
         <Form.Group>
             {label && <label>{label}</label>}
             <CKEditor
                 editor={ClassicEditor}
-                data={value}
+                data={getLongTextContent4Multilanguage(value, i18n.language)}
                 onChange={(event: any, editor: any) => {
-                    const data = editor.getData();
-                    form.setFieldValue("description", data);
+                    const data = editor.getData()
+                    form.setFieldValue('description', data)
                 }}
                 onFocus={(event: any, editor: any) => {
-                    editor.ui.view.editable.element.style.minHeight = "200px";
-                    editor.ui.view.editable.element.style.backgroundColor = "black";
+                    editor.ui.view.editable.element.style.minHeight = '200px'
+                    editor.ui.view.editable.element.style.backgroundColor = 'black'
                 }}
             ></CKEditor>
-            <div className={showError ? "is-invalid" : ""}></div>
+            <div className={showError ? 'is-invalid' : ''}></div>
             <ErrorMessage name={name} component={FormFeedback}></ErrorMessage>
         </Form.Group>
-    );
-};
+    )
+}
 
-CKEditorField.defaultProps = defaultProps;
+CKEditorField.defaultProps = defaultProps
 
-export default CKEditorField;
+export default CKEditorField

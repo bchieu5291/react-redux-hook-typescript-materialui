@@ -12,6 +12,8 @@ import { Classification } from 'reducers/classificationReducer'
 import SelectDropdownField from 'components/custom/SelectDropdownField'
 import { ClassificationContext } from 'contexts/ClassificationContext'
 import * as Yup from 'yup'
+import { useTranslation } from 'react-i18next'
+import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
 
 const { CKEditor } = require('@ckeditor/ckeditor5-react')
 
@@ -21,6 +23,7 @@ interface IAddNews {
     url: string
     image: File[]
     classifications: Classification[]
+    languageId: string
 }
 
 const UpdateNewsModal = () => {
@@ -36,16 +39,21 @@ const UpdateNewsModal = () => {
         classifcationState: { classificationsLoading, classifications },
     } = useContext(ClassificationContext)
 
+    const [t, i18n] = useTranslation('common')
+
     //state
 
     let initialValues: IAddNews = {
         ...newsDetail,
+        title: getTextContent4Multilanguage(newsDetail.title, i18n.language),
+        description: getLongTextContent4Multilanguage(newsDetail.description, i18n.language),
         image: [],
         classifications:
             newsDetail.classifications.map((item) => ({
                 value: item._id,
                 label: item.title,
             })) || [],
+        languageId: 'en',
     }
 
     const resetUpdateNewsData = () => {
@@ -69,6 +77,7 @@ const UpdateNewsModal = () => {
                 'classifications',
                 values.classifications.map((item) => item.value).join(',')
             )
+            _formData.append('languageId', i18n.language)
             const response = await updateNews(_formData)
 
             resetUpdateNewsData()
@@ -105,6 +114,7 @@ const UpdateNewsModal = () => {
                                         component={InputField}
                                         label='Title'
                                         placeholder='news title'
+                                        isMultiLanguage={true}
                                     />
                                     <FastField
                                         name='description'

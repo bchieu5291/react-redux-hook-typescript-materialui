@@ -1,68 +1,73 @@
-import InputField from "components/custom/InputField";
-import SelectDropdownField from "components/custom/SelectDropdownField";
-import UploadFileField from "components/custom/UploadFileField";
-import { ClassificationContext } from "contexts/ClassificationContext";
-import { NewsContext } from "contexts/NewsContext";
-import { FastField, Formik, yupToFormErrors } from "formik";
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import { Classification } from "reducers/classificationReducer";
-import CKEditorField from "./../custom/CKEditorField";
-import * as Yup from "yup";
+import InputField from 'components/custom/InputField'
+import SelectDropdownField from 'components/custom/SelectDropdownField'
+import UploadFileField from 'components/custom/UploadFileField'
+import { ClassificationContext } from 'contexts/ClassificationContext'
+import { NewsContext } from 'contexts/NewsContext'
+import { FastField, Formik, yupToFormErrors } from 'formik'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, Form, Modal } from 'react-bootstrap'
+import { Classification } from 'reducers/classificationReducer'
+import CKEditorField from './../custom/CKEditorField'
+import * as Yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
-const { CKEditor } = require("@ckeditor/ckeditor5-react");
+const { CKEditor } = require('@ckeditor/ckeditor5-react')
 
 interface IAddNews {
-    title: string;
-    description: string;
-    url: string;
-    image: File[];
-    classifications: Classification[];
+    title: string
+    description: string
+    url: string
+    image: File[]
+    classifications: Classification[]
+    languageId: string
 }
 
 const AddNewsModal = () => {
     //context
-    const { addNews, showAddNewsModal, setShowAddNewsModal } = useContext(NewsContext);
+    const { addNews, showAddNewsModal, setShowAddNewsModal } = useContext(NewsContext)
     const {
         getClassifications,
         classifcationState: { classificationsLoading, classifications },
-    } = useContext(ClassificationContext);
+    } = useContext(ClassificationContext)
     //state
+    const [t, i18n] = useTranslation('common')
 
     const initialValues: IAddNews = {
-        title: "",
-        description: "",
-        url: "",
+        title: '',
+        description: '',
+        url: '',
         image: [],
         classifications: [],
-    };
+        languageId: 'en',
+    }
 
     const validationSchema = Yup.object().shape({
-        title: Yup.string().required("Required field."),
-        description: Yup.string().required("Required field."),
-        classifications: Yup.array().min(1, "Required field."),
-        image: Yup.array().min(1, "Required field."),
-    });
+        title: Yup.string().required('Required field.'),
+        description: Yup.string().required('Required field.'),
+        classifications: Yup.array().min(1, 'Required field.'),
+        image: Yup.array().min(1, 'Required field.'),
+    })
 
     const resetAddNewsData = () => {
-        setShowAddNewsModal(false);
-    };
+        setShowAddNewsModal(false)
+    }
 
     useEffect(() => {
-        getClassifications();
-    }, []);
+        getClassifications()
+    }, [])
 
     const onSubmit = async (values: IAddNews) => {
         try {
-            let _formData = new FormData();
-            _formData.append("title", values.title);
-            _formData.append("description", values.description);
-            _formData.append("url", values.url);
+            let _formData = new FormData()
+            _formData.append('title', values.title)
+            _formData.append('description', values.description)
+            _formData.append('url', values.url)
             _formData.append(
-                "classifications",
-                values.classifications.map((item) => item.value).join(",")
-            );
-            _formData.append("imageFile", values.image[0] as File);
+                'classifications',
+                values.classifications.map((item) => item.value).join(',')
+            )
+            _formData.append('imageFile', values.image[0] as File)
+            _formData.append('languageId', i18n.language)
 
             // var newNews = {
             //     title: values.title,
@@ -71,13 +76,13 @@ const AddNewsModal = () => {
             //     imageFile: values.image[0],
             // } as News;
 
-            const response = await addNews(_formData);
+            const response = await addNews(_formData)
 
-            resetAddNewsData();
+            resetAddNewsData()
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-    };
+    }
 
     return (
         <Modal show={showAddNewsModal} animation={false} onHide={resetAddNewsData}>
@@ -91,62 +96,62 @@ const AddNewsModal = () => {
                 validationSchema={validationSchema}
             >
                 {(formikProps) => {
-                    const { values, errors, touched, handleSubmit } = formikProps;
-                    console.log({ values, errors, touched });
+                    const { values, errors, touched, handleSubmit } = formikProps
+                    console.log({ values, errors, touched })
                     return (
                         <>
                             <Form
                                 onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleSubmit();
+                                    e.preventDefault()
+                                    handleSubmit()
                                 }}
                             >
                                 <Modal.Body>
                                     <FastField
-                                        name="title"
+                                        name='title'
                                         component={InputField}
-                                        label="Title"
-                                        placeholder="news title"
+                                        label='Title'
+                                        placeholder='news title'
                                     />
                                     <FastField
-                                        name="description"
+                                        name='description'
                                         component={CKEditorField}
-                                        label="description"
-                                        placeholder="news description"
+                                        label='description'
+                                        placeholder='news description'
                                     />
                                     <FastField
-                                        name="image"
-                                        type="file"
+                                        name='image'
+                                        type='file'
                                         component={UploadFileField}
-                                        label="Image"
-                                        placeholder="Select image"
+                                        label='Image'
+                                        placeholder='Select image'
                                     />
                                     <FastField
-                                        name="classifications"
+                                        name='classifications'
                                         component={SelectDropdownField}
                                         options={classifications}
-                                        label="Classifications"
-                                        placeholder="Select"
+                                        label='Classifications'
+                                        placeholder='Select'
                                     />
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button
-                                        variant="secondary"
+                                        variant='secondary'
                                         onClick={resetAddNewsData.bind(this, false)}
                                     >
                                         Cancel
                                     </Button>
-                                    <Button variant="primary" type="submit">
+                                    <Button variant='primary' type='submit'>
                                         Add
                                     </Button>
                                 </Modal.Footer>
                             </Form>
                         </>
-                    );
+                    )
                 }}
             </Formik>
         </Modal>
-    );
-};
+    )
+}
 
-export default AddNewsModal;
+export default AddNewsModal

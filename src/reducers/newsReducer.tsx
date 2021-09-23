@@ -16,7 +16,7 @@ const {
 export interface News {
     _id: string
     title: { [key: string]: string } | string
-    description: string
+    description: { [key: string]: string } | string
     url: string
     imageFile: IImageFile
     classifications: ClassificationReponse[]

@@ -8,7 +8,7 @@ import { Button, Col, Nav, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import { getTextContent4Multilanguage } from 'ultilities/helper'
+import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
 
 const NewsPage = () => {
     const {
@@ -69,12 +69,11 @@ const NewsPage = () => {
                         </h2>
                         <p className='card-text'>
                             {' '}
-                            {firstNews.description.length > 150
-                                ? firstNews.description
-                                      .replace(regex, '')
-                                      .slice(0, 150)
-                                      .concat('...')
-                                : firstNews.description.replace(regex, '')}
+                            {getLongTextContent4Multilanguage(
+                                firstNews.description,
+                                i18n.language,
+                                150
+                            )}
                         </p>
                         <Nav.Link
                             className='btn btn-primary'
@@ -120,13 +119,12 @@ const NewsPage = () => {
                                 {getTextContent4Multilanguage(newsItem.title, i18n.language)}
                             </h2>
                             <p className='card-text'>
-                                {' '}
-                                {newsItem.description.length > 150
-                                    ? newsItem.description
-                                          .replace(regex, '')
-                                          .slice(0, 150)
-                                          .concat('...')
-                                    : newsItem.description.replace(regex, '')}
+                                {''}
+                                {getLongTextContent4Multilanguage(
+                                    newsItem.description,
+                                    i18n.language,
+                                    150
+                                )}
                             </p>
                             <Nav.Link
                                 className='btn btn-primary my-auto'
