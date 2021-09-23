@@ -7,8 +7,6 @@ import { Link, useParams } from 'react-router-dom'
 import { News } from 'reducers/newsReducer'
 import { getTextContent4Multilanguage } from 'ultilities/helper'
 
-const { CKEditor } = require('@ckeditor/ckeditor5-react')
-
 interface IProps {
     id: string
 }
@@ -17,25 +15,31 @@ const NewsDetailPages = () => {
     const params = useParams<IProps>()
     //context
     const {
-        newsState: { newsListing, newsListingLoading, newsDetail },
+        newsState: { newsListing, newsListingLoading },
         getNews,
         findNews,
     } = useContext(NewsContext)
     const [t, i18n] = useTranslation('common')
 
+    const [newsDetail, setNewsDetail] = useState<News>()
+
     const [relatedNews, setRelatedNews] = useState<News[]>([])
 
     //Start: Get all news
+
     useEffect(() => {
         getNews(undefined, undefined, undefined, 15)
     }, [params])
 
     useEffect(() => {
-        findNews(params.id)
+        // findNews(params.id)
+        if (newsListing && newsListing.length > 0) {
+            setNewsDetail(newsListing.find((t) => t._id === params.id))
+        }
 
         // Shuffle array
         const shuffled = newsListing
-            .filter((t) => t._id != params.id)
+            .filter((t) => t._id !== params.id)
             .sort(() => 0.5 - Math.random())
         var relatedItems = shuffled.slice(0, 4)
         setRelatedNews(relatedItems)
@@ -63,7 +67,14 @@ const NewsDetailPages = () => {
 
                         <div className='col-md-4'>
                             <h3 className='my-3'>Information</h3>
-                            <div dangerouslySetInnerHTML={{ __html: newsDetail.description }} />
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: getTextContent4Multilanguage(
+                                        newsDetail.description,
+                                        i18n.language
+                                    ),
+                                }}
+                            />
                             <h3 className='my-3'>Classifications</h3>
                             <ul>
                                 {newsDetail.classifications.map((item) => (
@@ -88,7 +99,9 @@ const NewsDetailPages = () => {
                                             alt=''
                                         />
                                     </Link>
-                                    <Link to={`/news/${item._id}`}>{item.title}</Link>
+                                    <Link to={`/news/${item._id}`}>
+                                        {getTextContent4Multilanguage(item.title, i18n.language)}
+                                    </Link>
                                 </div>
                             )
                         })}

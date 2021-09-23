@@ -38,7 +38,7 @@ const InputField = (props: Props) => {
             <Form.Control
                 id={name}
                 {...field}
-                value={getTextContent4Multilanguage(value, i18n.language) as string}
+                value={getTextContent4Multilanguage(value, i18n.language)}
                 placeholder='eg: news title'
                 type={type}
                 isInvalid={showError}
