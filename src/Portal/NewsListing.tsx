@@ -106,13 +106,13 @@ const NewsListing = () => {
     let body = null
     body = (
         <>
-            <Row className='row-cols-12 g-4 mx-auto mt-3'>
+            <div className='mx-auto mt-3'>
                 {newsListing.map((news) => (
-                    <Col key={news._id} className='my-2 news-item'>
+                    <Col key={news._id} className='col-xs-12 col-md-12 my-2 news-item'>
                         <SingleNews {...news} />
                     </Col>
                 ))}
-            </Row>
+            </div>
 
             {/* {Open Modal} */}
             <OverlayTrigger
