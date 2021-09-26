@@ -37,7 +37,7 @@ const CKEditorField = (props: Props) => {
             {label && <label>{label}</label>}
             <CKEditor
                 editor={ClassicEditor}
-                data={getLongTextContent4Multilanguage(value, i18n.language)}
+                data={getTextContent4Multilanguage(value, i18n.language)}
                 onChange={(event: any, editor: any) => {
                     const data = editor.getData()
                     form.setFieldValue('description', data)

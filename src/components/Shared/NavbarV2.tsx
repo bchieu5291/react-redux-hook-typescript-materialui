@@ -47,6 +47,9 @@ const NavbarV2 = () => {
                     <Nav.Link className='font-weight-bolder text-white' to='/portal/news' as={Link}>
                         {t('home.news')}
                     </Nav.Link>
+                    <Nav.Link className='font-weight-bolder text-white' to='/portal/book' as={Link}>
+                        {t('book')}
+                    </Nav.Link>
                     <Nav.Link
                         className='font-weight-bolder text-white'
                         to='/portal/resize-image'

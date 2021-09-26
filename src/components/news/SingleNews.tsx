@@ -7,12 +7,7 @@ import { News } from 'reducers/newsReducer'
 import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
 
 const SingleNews = (news: News) => {
-    const regex = /(<([^>]+)>)/gi
     const [t, i18n] = useTranslation('common')
-
-    const createMakeup = (htmlText: string) => {
-        return { __html: htmlText }
-    }
 
     return (
         <Row className='no-gutters'>
