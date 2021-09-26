@@ -24,7 +24,7 @@ const PublicNavbar = () => {
     }
 
     return (
-        <Navbar bg='secondary' expand='lg' variant='dark'>
+        <Navbar bg='secondary' expand='lg' variant='dark' className='sticky-top'>
             <Navbar.Brand to='/' as={Link} className='text-white'>
                 G-Dev
             </Navbar.Brand>

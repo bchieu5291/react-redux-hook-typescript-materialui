@@ -301,3 +301,55 @@ section {
 .steps-wrapper .step-4 {
     background: #00b59a;
 }
+
+/* nav bar */
+.navbar {
+    z-index: 2;
+}
+/*---To center elements of the navbar (mobile)---*/
+
+.navbar-brand {
+    font-size: 1rem;
+    z-index: 2;
+}
+
+/*---Custom AnimateCSS mobile menu items---*/
+.nav-item {
+    -webkit-animation-duration: 0; /* Chrome 3-42 & Safari 4-8 & Opera 15-29 */
+    -moz-animation-duration: 0.8s; /* Firefox 5-15 */
+    -o-animation-duration: 0.8s; /* Opera 12-14 */
+    animation-duration: 0;
+}
+
+@media only screen and (max-width: 991px) {
+    #basic-navbar-nav {
+        height: 100vh !important;
+    }
+}
+
+@media only screen and (min-device-width: 992px) {
+    .animated {
+        /*CSS transitions*/
+        -o-transition-property: none !important;
+        -moz-transition-property: none !important;
+        -ms-transition-property: none !important;
+        -webkit-transition-property: none !important;
+        transition-property: none !important;
+        /*CSS transforms*/
+        -o-transform: none !important;
+        -moz-transform: none !important;
+        -ms-transform: none !important;
+        -webkit-transform: none !important;
+        transform: none !important;
+        /*CSS animations*/
+        -webkit-animation: none !important;
+        -moz-animation: none !important;
+        -o-animation: none !important;
+        -ms-animation: none !important;
+        animation: none !important;
+    }
+
+    #basic-navbar-nav {
+        height: auto;
+    }
+}
