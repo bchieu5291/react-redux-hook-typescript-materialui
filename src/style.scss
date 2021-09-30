@@ -1,3 +1,5 @@
+@import 'assets/css/global.scss';
+
 @media (min-width: 992px) {
     section#banner {
         margin-bottom: 200px;
@@ -47,7 +49,7 @@ section#my-project-work {
     img.my-project-item {
         width: 100%;
         border-radius: 16px;
-        height: 100px;
+        height: 150px;
     }
 
     .imgHolder {

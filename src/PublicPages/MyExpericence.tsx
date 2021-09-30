@@ -8,8 +8,17 @@ import mrbillImage from 'assets/mrbill.png'
 import bwImage from 'assets/bw.png'
 import pokkaImage from 'assets/pokka.png'
 import nusgameImage from 'assets/nusgame.png'
+import { useState } from 'react'
+import ImagePopup from 'components/Shared/ImagePopup'
 
 const MyExpericence = () => {
+    const [imagePopup, setImagePopup] = useState({ open: false, imageUrl: '' })
+
+    const onImageClick = (data: any) => {
+        console.log(data)
+        setImagePopup({ open: true, imageUrl: data })
+    }
+
     return (
         <PublicTemplate>
             <section id='my-profile' className='pb-0'>
@@ -42,7 +51,12 @@ const MyExpericence = () => {
                     <div className='row'>
                         <div className='col-md-4 d-inline'>
                             <div className='imgHolder'>
-                                <img src={bwImage} alt='' className='my-project-item' />
+                                <img
+                                    src={bwImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, bwImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>BW</p>
                                 </div>
@@ -51,7 +65,12 @@ const MyExpericence = () => {
                         </div>
                         <div className='col-md-4'>
                             <div className='imgHolder'>
-                                <img src={sussImage} alt='' className='my-project-item' />
+                                <img
+                                    src={sussImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, sussImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>SUSS</p>
                                 </div>
@@ -60,7 +79,12 @@ const MyExpericence = () => {
                         </div>
                         <div className='col-md-4'>
                             <div className='imgHolder'>
-                                <img src={mrbillImage} alt='' className='my-project-item' />
+                                <img
+                                    src={mrbillImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, mrbillImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>Mrbill</p>
                                 </div>
@@ -71,7 +95,12 @@ const MyExpericence = () => {
                     <div className='row'>
                         <div className='col-md-4 d-inline'>
                             <div className='imgHolder'>
-                                <img src={xpomaniaImage} alt='' className='my-project-item' />
+                                <img
+                                    src={xpomaniaImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, xpomaniaImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>XPO Mania</p>
                                 </div>
@@ -80,7 +109,12 @@ const MyExpericence = () => {
                         </div>
                         <div className='col-md-4 d-inline'>
                             <div className='imgHolder'>
-                                <img src={pokkaImage} alt='' className='my-project-item' />
+                                <img
+                                    src={pokkaImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, pokkaImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>Pokka</p>
                                 </div>
@@ -89,7 +123,12 @@ const MyExpericence = () => {
                         </div>
                         <div className='col-md-4 d-inline'>
                             <div className='imgHolder'>
-                                <img src={nusgameImage} alt='' className='my-project-item' />
+                                <img
+                                    src={nusgameImage}
+                                    alt=''
+                                    className='my-project-item'
+                                    onClick={onImageClick.bind(this, nusgameImage)}
+                                />
                                 <div className='wrapper-text'>
                                     <p className='my-project-label mb-0'>NUS</p>
                                 </div>
@@ -100,6 +139,12 @@ const MyExpericence = () => {
                 </div>
             </section>
             <ContactUs />
+            {imagePopup.open === true && (
+                <ImagePopup
+                    imageUrl={imagePopup.imageUrl}
+                    onClick={() => setImagePopup({ open: false, imageUrl: '' })}
+                />
+            )}
         </PublicTemplate>
     )
 }
