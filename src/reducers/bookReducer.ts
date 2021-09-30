@@ -16,6 +16,7 @@ export interface IBook {
     title: { [key: string]: string } | string
     description: { [key: string]: string } | string
     url: string
+    type: string
     imageFile: IImageFile
     createAt: Date
 }
@@ -25,6 +26,7 @@ export interface IAddUpdateBooks {
     title: string
     description: string
     url: string
+    type: string
     imageFile: IImageFile
     createAt: Date
 }
@@ -106,12 +108,12 @@ export const bookReducer = (state: IBookReducerState, action: PostAction) => {
         case DELETE_BOOK:
             return {
                 ...state,
-                newsListing: state.bookListing.filter((book) => book._id !== action.payload),
+                bookListing: state.bookListing.filter((book) => book._id !== action.payload),
             }
         case FIND_BOOK_BY_ID:
             return {
                 ...state,
-                newsDetail: action.payload,
+                bookDetail: action.payload,
             }
         case UPDATE_BOOK:
             const newBookListing = state.bookListing.map((book) => {
@@ -123,7 +125,7 @@ export const bookReducer = (state: IBookReducerState, action: PostAction) => {
             })
             return {
                 ...state,
-                newsListing: newBookListing,
+                bookListing: newBookListing,
             }
         default:
             return state

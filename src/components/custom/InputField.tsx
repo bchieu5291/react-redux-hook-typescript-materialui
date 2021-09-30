@@ -39,7 +39,7 @@ const InputField = (props: Props) => {
                 id={name}
                 {...field}
                 value={getTextContent4Multilanguage(value, i18n.language)}
-                placeholder='eg: news title'
+                placeholder={placeholder}
                 type={type}
                 isInvalid={showError}
             />

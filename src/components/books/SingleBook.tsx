@@ -3,6 +3,7 @@ import { Card, Col, Image, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { IBook } from 'reducers/bookReducer'
 import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
+import ActionButtons from 'components/posts/ActionButtons'
 
 const SingleBook = (book: IBook) => {
     const [t, i18n] = useTranslation('common')
@@ -27,8 +28,7 @@ const SingleBook = (book: IBook) => {
                 </Card.Body>
                 <Row className='no-gutters justify-content-end mt-auto'>
                     <div className='text-right'>
-                        action button
-                        {/* <ActionButtons {...book} /> */}
+                        <ActionButtons {...book} />
                     </div>
                 </Row>
             </Col>

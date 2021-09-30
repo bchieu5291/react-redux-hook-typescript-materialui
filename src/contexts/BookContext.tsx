@@ -21,15 +21,15 @@ interface Props {
 
 interface ContextDefault {
     bookState: IBookReducerState
-    getBook: (title?: string, page?: number, length?: number) => void
+    getBook: (title?: string, offset?: number, length?: number) => void
     addBook: (newBook: FormData) => any
     showAddBookModal: boolean
     setShowAddBookModal: (showAddNewsModal: boolean) => void
-    // deleteNews: (newsId: string) => any
-    // findNews: (newsId: string) => any
-    // showUpdateNewsModal: boolean
-    // setShowUpdateNewsModal: (showUpdateNewsModal: boolean) => void
-    // updateNews: (news: FormData) => any
+    deleteBook: (newsId: string) => any
+    findBook: (newsId: string) => any
+    showUpdateBookModal: boolean
+    setShowUpdateBookModal: (showUpdateBookModal: boolean) => void
+    updateBook: (news: FormData) => any
 }
 
 const defaultPostData: IAddUpdateBooks = {
@@ -37,6 +37,7 @@ const defaultPostData: IAddUpdateBooks = {
     title: '',
     description: '',
     url: '',
+    type: 'book',
     createAt: new Date(),
     imageFile: {
         _id: '',
@@ -65,11 +66,11 @@ export const BookContext = createContext<ContextDefault>({
     addBook: () => {},
     showAddBookModal: false,
     setShowAddBookModal: () => {},
-    // deleteNews: () => {},
-    // findNews: () => {},
-    // showUpdateNewsModal: false,
-    // setShowUpdateNewsModal: () => {},
-    // updateNews: () => {},
+    deleteBook: () => {},
+    findBook: () => {},
+    showUpdateBookModal: false,
+    setShowUpdateBookModal: () => {},
+    updateBook: () => {},
 })
 
 const BookContextProvider = ({ children }: Props) => {
@@ -78,7 +79,7 @@ const BookContextProvider = ({ children }: Props) => {
 
     //state
     const [showAddBookModal, setShowAddBookModal] = useState(false)
-    const [showUpdateNewsModal, setShowUpdateNewsModal] = useState(false)
+    const [showUpdateBookModal, setShowUpdateBookModal] = useState(false)
     // const [showToast, setShowToast] = useState<IToast>({
     //     show: true,
     //     message: "",
@@ -86,10 +87,10 @@ const BookContextProvider = ({ children }: Props) => {
     // });
 
     //get News
-    const getBook = async (title?: string, page?: number, length?: number) => {
+    const getBook = async (title?: string, offset?: number, length?: number) => {
         try {
             const response = await axios.get(
-                `${apiUrl}/books?title=${title ?? ''}&page=${page ?? 0}&length=${length ?? 0}`
+                `${apiUrl}/books?title=${title ?? ''}&offset=${offset ?? 0}&length=${length ?? 0}`
             )
             if (response.data.success) {
                 dispatch({
@@ -135,60 +136,60 @@ const BookContextProvider = ({ children }: Props) => {
         }
     }
 
-    // // Find post when user click on post and add it to Post Context
-    // const findNews = (newsId: string) => {
-    //     const news = bookState.newsListing.find((item) => item._id == newsId)
-    //     dispatch({
-    //         type: FIND_NEWS_BY_ID,
-    //         payload: news as IAddUpdateNews,
-    //     })
-    // }
+    // Find post when user click on post and add it to Post Context
+    const findBook = (bookId: string) => {
+        const news = bookState.bookListing.find((item) => item._id == bookId)
+        dispatch({
+            type: FIND_BOOK_BY_ID,
+            payload: news as IAddUpdateBooks,
+        })
+    }
 
-    // // update news
-    // const updateNews = async (updatedNews: FormData) => {
-    //     try {
-    //         const url = `${apiUrl}/news/${bookState.newsDetail._id}`
-    //         axios({
-    //             method: 'put',
-    //             url: url,
-    //             data: updatedNews,
-    //             headers: { 'Content-Type': 'multipart/form-data' },
-    //         }).then(function (response) {
-    //             //handle success
-    //             if (response.data.success) {
-    //                 dispatch({
-    //                     type: UPDATE_NEWS,
-    //                     payload: response.data.news,
-    //                 })
+    // update Book
+    const updateBook = async (updatedBook: FormData) => {
+        try {
+            const url = `${apiUrl}/books/${bookState.bookDetail._id}`
+            axios({
+                method: 'put',
+                url: url,
+                data: updatedBook,
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then(function (response) {
+                //handle success
+                if (response.data.success) {
+                    dispatch({
+                        type: UPDATE_BOOK,
+                        payload: response.data.book,
+                    })
 
-    //                 return response.data
-    //             }
-    //         })
-    //     } catch (error: any) {
-    //         return error.response.data
-    //             ? error.response.data
-    //             : { success: false, message: 'Server error' }
-    //     }
-    // }
+                    return response.data
+                }
+            })
+        } catch (error: any) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: 'Server error' }
+        }
+    }
 
-    // //delete Posts
-    // const deleteNews = async (newsId: string) => {
-    //     try {
-    //         const response = await axios.delete(`${apiUrl}/news/${newsId}`)
-    //         if (response.data.success) {
-    //             dispatch({
-    //                 type: DELETE_NEWS,
-    //                 payload: newsId,
-    //             })
+    //delete Posts
+    const deleteBook = async (bookId: string) => {
+        try {
+            const response = await axios.delete(`${apiUrl}/books/${bookId}`)
+            if (response.data.success) {
+                dispatch({
+                    type: DELETE_BOOK,
+                    payload: bookId,
+                })
 
-    //             return response.data
-    //         }
-    //     } catch (error: any) {
-    //         return error.response.data
-    //             ? error.response.data
-    //             : { success: false, message: 'Server error' }
-    //     }
-    // }
+                return response.data
+            }
+        } catch (error: any) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: 'Server error' }
+        }
+    }
 
     //context data
     const bookContextData = {
@@ -197,11 +198,11 @@ const BookContextProvider = ({ children }: Props) => {
         addBook,
         showAddBookModal,
         setShowAddBookModal,
-        // deleteNews,
-        // findNews,
-        // showUpdateNewsModal,
-        // setShowUpdateNewsModal,
-        // updateNews,
+        deleteBook,
+        findBook,
+        showUpdateBookModal,
+        setShowUpdateBookModal,
+        updateBook,
     }
 
     return <BookContext.Provider value={bookContextData}>{children}</BookContext.Provider>

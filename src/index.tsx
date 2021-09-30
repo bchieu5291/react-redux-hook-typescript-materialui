@@ -15,6 +15,7 @@ import CardDetail from './components/CardListing/CardDetail'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import AuthTemplate from './components/Template/AuthTemplate'
 import './index.css'
+import './style.scss'
 import reportWebVitals from './reportWebVitals'
 import ProtectedRoute from './routing/ProtectedRoute'
 import NewsDetailPages from './PublicPages/NewsDetailPages'
@@ -64,6 +65,11 @@ ReactDOM.render(
                                                                 exact
                                                                 path='/'
                                                                 component={NewsPage}
+                                                            ></Route>
+                                                            <Route
+                                                                exact
+                                                                path='/about'
+                                                                component={About}
                                                             ></Route>
                                                             <Route
                                                                 path='/news/:id'

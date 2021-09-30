@@ -32,6 +32,9 @@ const PublicNavbar = () => {
 
             <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='me-auto'>
+                    <Nav.Link className='font-weight-bolder text-white' to='/about' as={Link}>
+                        {t('about')}
+                    </Nav.Link>
                     <Nav.Link
                         className='font-weight-bolder text-white'
                         href='http://nextjs.georgedev.info'
