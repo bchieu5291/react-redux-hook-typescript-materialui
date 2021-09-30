@@ -1,8 +1,12 @@
-FROM node:slim
+FROM node:lts-slim
 WORKDIR /usr/src/app
 ENV WELCOME_MESSAGE="welcome george docker v2"
 COPY package.json .
 COPY yarn.lock .
+
+RUN apt-get update || : && apt-get install -y \
+    python \
+    build-essential
 
 RUN yarn install
 COPY . .
