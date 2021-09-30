@@ -3,6 +3,7 @@ import { Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ReactFlagsSelect from 'react-flags-select'
+import { useLocation } from 'react-router-dom'
 
 const PublicNavbar = () => {
     const [t, i18n] = useTranslation('common')
@@ -15,6 +16,11 @@ const PublicNavbar = () => {
             if (language === 'vi') setSelected('VN')
         }
     }, [])
+
+    const location = useLocation()
+
+    const isExperience = location.pathname === '/my-experience' && 'font-weight-bolder'
+    const isAbout = location.pathname === '/about' && 'font-weight-bolder'
 
     const onChangeLanguage = (code: any) => {
         setSelected(code)
@@ -32,32 +38,32 @@ const PublicNavbar = () => {
 
             <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='me-auto'>
-                    <Nav.Link className='font-weight-bolder text-white' to='/about' as={Link}>
+                    <Nav.Link className={`${isAbout} text-white`} to='/about' as={Link}>
                         {t('about')}
                     </Nav.Link>
                     <Nav.Link
-                        className='font-weight-bolder text-white'
+                        className={`${isExperience} text-white`}
                         to='/my-experience'
                         as={Link}
                     >
                         {t('experience')}
                     </Nav.Link>
                     <Nav.Link
-                        className='font-weight-bolder text-white'
+                        className='text-white'
                         href='http://nextjs.georgedev.info'
                         target='_blank'
                     >
                         NextJS
                     </Nav.Link>
                     <Nav.Link
-                        className='font-weight-bolder text-white'
+                        className='text-white'
                         href='http://vue.georgedev.info'
                         target='_blank'
                     >
                         Vue
                     </Nav.Link>
                     <Nav.Link
-                        className='font-weight-bolder text-white'
+                        className='text-white'
                         href='http://umbraco.georgedev.info'
                         target='_blank'
                     >
