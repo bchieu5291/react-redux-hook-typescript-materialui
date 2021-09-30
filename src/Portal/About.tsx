@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import PublicTemplate from 'components/Template/PublicTemplate'
 import programmeImage from '../assets/programme.png'
 import waveBanner from '../assets/banner-wave.png'
+import ContactUs from 'components/Shared/ContactUs'
 
 const About = () => {
     return (
@@ -38,6 +39,7 @@ const About = () => {
                     </div>
                 </div>
             </section>
+            <ContactUs />
         </PublicTemplate>
     )
 }

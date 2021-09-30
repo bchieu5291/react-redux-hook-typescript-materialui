@@ -35,3 +35,39 @@ section#services {
         transform: translateY(70px);
     }
 }
+
+section#my-profile {
+    img.my-avatar {
+        width: 100%;
+        border-radius: 16px;
+    }
+}
+
+section#my-project-work {
+    img.my-project-item {
+        width: 100%;
+        border-radius: 16px;
+        height: 100px;
+    }
+
+    .imgHolder {
+        position: relative;
+
+        .wrapper-text {
+            background: rgba(70, 85, 85, 0.5);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        p {
+            color: white;
+        }
+    }
+
+    // .my-project-label {
+    //     position: relative;
+    //     top: -20px;
+    // }
+}

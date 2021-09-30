@@ -37,6 +37,13 @@ const PublicNavbar = () => {
                     </Nav.Link>
                     <Nav.Link
                         className='font-weight-bolder text-white'
+                        to='/my-experience'
+                        as={Link}
+                    >
+                        {t('experience')}
+                    </Nav.Link>
+                    <Nav.Link
+                        className='font-weight-bolder text-white'
                         href='http://nextjs.georgedev.info'
                         target='_blank'
                     >

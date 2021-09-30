@@ -16,6 +16,7 @@ import CardDetail from './components/CardListing/CardDetail'
 import AuthTemplate from './components/Template/AuthTemplate'
 import './index.css'
 import './style.scss'
+import 'react-toastify/dist/ReactToastify.css'
 import reportWebVitals from './reportWebVitals'
 import ProtectedRoute from './routing/ProtectedRoute'
 import NewsDetailPages from './PublicPages/NewsDetailPages'
@@ -33,6 +34,7 @@ import common_en from 'translate/en/common.json'
 import common_vi from 'translate/vi/common.json'
 import PortalBookListing from 'Portal/PortalBookListing'
 import BookContextProvider from 'contexts/BookContext'
+import MyExpericence from './PublicPages/MyExpericence'
 
 i18next.use(LanguageDetector).init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -70,6 +72,11 @@ ReactDOM.render(
                                                                 exact
                                                                 path='/about'
                                                                 component={About}
+                                                            ></Route>
+                                                            <Route
+                                                                exact
+                                                                path='/my-experience'
+                                                                component={MyExpericence}
                                                             ></Route>
                                                             <Route
                                                                 path='/news/:id'
