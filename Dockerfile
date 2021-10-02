@@ -10,5 +10,10 @@ COPY yarn.lock .
 
 RUN yarn install
 COPY . .
+
+RUN yarn build
+
+RUN npm install -g serve
+
 EXPOSE 3000
-CMD ["yarn", "dev"] 
+CMD ["yarn", "prod"] 

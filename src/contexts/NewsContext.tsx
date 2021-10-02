@@ -131,7 +131,7 @@ const NewsContextProvider = ({ children }: Props) => {
                 }
             }
         } catch (error: any) {
-            return error.response.data
+            return error.response?.data
                 ? error.response.data
                 : { success: false, message: 'Server error' }
         }

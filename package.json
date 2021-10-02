@@ -43,7 +43,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "start:prod": "set NODE_ENV=production&&npm start"
+        "start:prod": "set NODE_ENV=production&&react-scripts start",
+        "prod": "serve -s build -l 3000"
     },
     "eslintConfig": {
         "extends": [
