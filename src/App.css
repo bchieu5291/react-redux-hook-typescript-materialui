@@ -129,6 +129,7 @@ button.post-button.btn:active {
     height: 170px;
     object-fit: cover;
     width: 100%;
+    border-radius: 16px;
 }
 
 .file {

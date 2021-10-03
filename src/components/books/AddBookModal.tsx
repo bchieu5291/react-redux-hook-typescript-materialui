@@ -9,18 +9,27 @@ import { Form } from 'react-bootstrap'
 import InputField from 'components/custom/InputField'
 import CKEditorField from 'components/custom/CKEditorField'
 import UploadFileField from 'components/custom/UploadFileField'
+import { Classification } from 'reducers/classificationReducer'
+import SelectDropdownField from './../custom/SelectDropdownField'
+import { ClassificationContext } from 'contexts/ClassificationContext'
 
 interface IAddBook {
     title: string
     description: string
     url: string
     image: File[]
+    bookFile: File[]
+    classifications: Classification[]
     languageId: string
 }
 
 const AddBookModal = () => {
     //context
     const { addBook, showAddBookModal, setShowAddBookModal } = useContext(BookContext)
+    const {
+        classifcationState: { classificationsLoading, classifications },
+    } = useContext(ClassificationContext)
+
     //state
     const [t, i18n] = useTranslation('common')
 
@@ -29,6 +38,8 @@ const AddBookModal = () => {
         description: '',
         url: '',
         image: [],
+        bookFile: [],
+        classifications: [],
         languageId: 'en',
     }
 
@@ -36,6 +47,8 @@ const AddBookModal = () => {
         title: Yup.string().required('Required field.'),
         description: Yup.string().required('Required field.'),
         image: Yup.array().min(1, 'Required field.'),
+        bookFile: Yup.array().min(1, 'Required field.'),
+        classifications: Yup.array().min(1, 'Required field.'),
         url: Yup.string().required('Required field.'),
     })
 
@@ -50,6 +63,11 @@ const AddBookModal = () => {
             _formData.append('description', values.description)
             _formData.append('url', values.url)
             _formData.append('imageFile', values.image[0] as File)
+            _formData.append('bookFile', values.bookFile[0] as File)
+            _formData.append(
+                'classifications',
+                values.classifications.map((item) => item.value).join(',')
+            )
             _formData.append('languageId', i18n.language)
             const response = await addBook(_formData)
 
@@ -101,11 +119,25 @@ const AddBookModal = () => {
                                         placeholder='http://'
                                     />
                                     <FastField
+                                        name='classifications'
+                                        component={SelectDropdownField}
+                                        options={classifications}
+                                        label='Classifications'
+                                        placeholder='Select'
+                                    />
+                                    <FastField
                                         name='image'
                                         type='file'
                                         component={UploadFileField}
                                         label='Image'
                                         placeholder='Select image'
+                                    />
+                                    <FastField
+                                        name='bookFile'
+                                        type='file'
+                                        component={UploadFileField}
+                                        label='Book File'
+                                        placeholder='Select book'
                                     />
                                 </Modal.Body>
                                 <Modal.Footer>

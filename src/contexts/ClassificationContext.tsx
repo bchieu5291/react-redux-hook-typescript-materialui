@@ -1,36 +1,37 @@
-import axios from "axios";
-import { createContext, ReactNode, useReducer, useState } from "react";
-import { ClassficationActionType, PostsActionType } from "reducers/types";
-import { IToast } from "model/AuthForm";
-import { apiUrl } from "../ultilities/constanst";
-import { Post } from "./../reducers/postReducer";
+import axios from 'axios'
+import { createContext, ReactNode, useReducer, useState } from 'react'
+import { ClassficationActionType, PostsActionType } from 'reducers/types'
+import { IToast } from 'model/AuthForm'
+import { apiUrl } from '../ultilities/constanst'
+import { Post } from './../reducers/postReducer'
 import {
     Classification,
     classificationReducer,
     ClassificationReponse,
     ClassificationState,
-} from "reducers/classificationReducer";
+} from 'reducers/classificationReducer'
 
-const { CLASSIFICATION_LOADED_FAIL, CLASSIFICATION_LOADED_SUCCESS } = ClassficationActionType;
+const { CLASSIFICATION_LOADED_FAIL, CLASSIFICATION_LOADED_SUCCESS } = ClassficationActionType
 
 interface Props {
-    children: ReactNode;
+    children: ReactNode
 }
 
 interface ClassificationDefault {
-    classifcationState: ClassificationState;
-    getClassifications: () => void;
+    classifcationState: ClassificationState
+    getClassifications: () => void
+    getClassificationsByType: (type: string) => void
 }
 
 const defaultPostData: Classification = {
-    value: "",
-    label: "",
-};
+    value: '',
+    label: '',
+}
 
 const defaultData: ClassificationState = {
     classifications: [] as Classification[],
     classificationsLoading: false,
-};
+}
 
 // const defaultToastData: IToast = {
 //     show: false,
@@ -41,11 +42,12 @@ const defaultData: ClassificationState = {
 export const ClassificationContext = createContext<ClassificationDefault>({
     classifcationState: defaultData,
     getClassifications: () => {},
-});
+    getClassificationsByType: () => {},
+})
 
 const ClassificationContextProvider = ({ children }: Props) => {
     //reducer
-    const [classifcationState, dispatch] = useReducer(classificationReducer, defaultData);
+    const [classifcationState, dispatch] = useReducer(classificationReducer, defaultData)
 
     //state
     // const [showAddPostModal, setShowAddPostModal] = useState(false);
@@ -59,37 +61,61 @@ const ClassificationContextProvider = ({ children }: Props) => {
     //get Posts
     const getClassifications = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/classifications`);
+            const response = await axios.get(`${apiUrl}/classifications`)
             if (response.data.success) {
                 const formatReponse: Classification[] = (
                     response.data.classifications as ClassificationReponse[]
                 ).map((item) => ({
                     value: item._id,
                     label: item.title,
-                }));
+                }))
                 dispatch({
                     type: CLASSIFICATION_LOADED_SUCCESS,
                     payload: formatReponse,
-                });
+                })
             }
         } catch (error: any) {
             return error.response?.data
                 ? error.response.data
-                : { success: false, message: "Server error" };
+                : { success: false, message: 'Server error' }
         }
-    };
+    }
+
+    //get Posts
+    const getClassificationsByType = async (type: string) => {
+        try {
+            const response = await axios.get(`${apiUrl}/classificationGlobal?type=${type}`)
+            if (response.data.success) {
+                const formatReponse: Classification[] = (
+                    response.data.data as ClassificationReponse[]
+                ).map((item) => ({
+                    value: item._id,
+                    label: item.title,
+                }))
+                dispatch({
+                    type: CLASSIFICATION_LOADED_SUCCESS,
+                    payload: formatReponse,
+                })
+            }
+        } catch (error: any) {
+            return error.response?.data
+                ? error.response.data
+                : { success: false, message: 'Server error' }
+        }
+    }
 
     //context data
     const postContextData = {
         getClassifications,
         classifcationState,
-    };
+        getClassificationsByType,
+    }
 
     return (
         <ClassificationContext.Provider value={postContextData}>
             {children}
         </ClassificationContext.Provider>
-    );
-};
+    )
+}
 
-export default ClassificationContextProvider;
+export default ClassificationContextProvider

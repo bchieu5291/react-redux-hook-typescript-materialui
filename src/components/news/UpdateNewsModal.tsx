@@ -14,6 +14,7 @@ import { ClassificationContext } from 'contexts/ClassificationContext'
 import * as Yup from 'yup'
 import { useTranslation } from 'react-i18next'
 import { getLongTextContent4Multilanguage, getTextContent4Multilanguage } from 'ultilities/helper'
+import NewsDetailPages from './../../PublicPages/NewsDetailPages'
 
 const { CKEditor } = require('@ckeditor/ckeditor5-react')
 
@@ -130,7 +131,7 @@ const UpdateNewsModal = () => {
                                         placeholder='Select image'
                                     />
                                     <Row className='mb-2'>
-                                        <Col>
+                                        <Col md={4}>
                                             <Card.Img
                                                 src={`${newsDetail.imageFile.imageUrl}`}
                                             ></Card.Img>

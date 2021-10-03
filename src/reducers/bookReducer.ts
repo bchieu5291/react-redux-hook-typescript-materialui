@@ -1,4 +1,5 @@
-import { IImageFile } from 'model/AuthForm'
+import { IDocumentFile, IImageFile } from 'model/AuthForm'
+import { ClassificationReponse } from './classificationReducer'
 import { BookActionType } from './types'
 
 const {
@@ -18,6 +19,7 @@ export interface IBook {
     url: string
     type: string
     imageFile: IImageFile
+    classifications: ClassificationReponse[]
     createAt: Date
 }
 
@@ -28,6 +30,8 @@ export interface IAddUpdateBooks {
     url: string
     type: string
     imageFile: IImageFile
+    bookFile: IDocumentFile
+    classifications: ClassificationReponse[]
     createAt: Date
 }
 

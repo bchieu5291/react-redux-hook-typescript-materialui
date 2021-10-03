@@ -8,6 +8,7 @@ import AddBookModal from './../components/books/AddBookModal'
 import UpdateBookModal from './../components/books/UpdateBookModal'
 import qs from 'querystring'
 import { useHistory, useLocation } from 'react-router-dom'
+import { ClassificationContext } from 'contexts/ClassificationContext'
 
 const PortalBookListing = () => {
     //context
@@ -17,12 +18,18 @@ const PortalBookListing = () => {
         setShowAddBookModal,
     } = useContext(BookContext)
 
+    const {
+        getClassificationsByType,
+        classifcationState: { classificationsLoading, classifications },
+    } = useContext(ClassificationContext)
+
     //router
     var router = useHistory()
     const location = useLocation()
 
     useEffect(() => {
         getBook()
+        getClassificationsByType('book')
     }, [])
 
     //Get all news when url change

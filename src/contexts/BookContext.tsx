@@ -43,6 +43,11 @@ const defaultPostData: IAddUpdateBooks = {
         _id: '',
         imageUrl: '',
     },
+    bookFile: {
+        _id: '',
+        fileUrl: '',
+    },
+    classifications: [],
 }
 
 const defaultData: IBookReducerState = {

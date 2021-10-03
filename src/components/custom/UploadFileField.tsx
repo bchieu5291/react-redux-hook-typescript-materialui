@@ -41,7 +41,7 @@ const UploadFileField = (props: Props) => {
                     onChange={(event: any) => {
                         const files = event.target.files as FileList
                         let myFiles = Array.from(files)
-                        form.setFieldValue('image', myFiles)
+                        form.setFieldValue(name, myFiles)
                     }}
                 />
                 <div className={showError ? 'is-invalid' : ''}></div>

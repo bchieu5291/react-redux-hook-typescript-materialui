@@ -12,16 +12,21 @@ const SingleBook = (book: IBook) => {
             <div>
                 <Image
                     style={{ maxWidth: 150 }}
-                    className='news-item-image'
+                    className='news-item-image p-2'
                     src={`${book.imageFile.imageUrl.replace('-original', '-related')}`}
                 />
             </div>
             <Col className='w-auto d-flex felx-column'>
-                <Card.Body>
+                <Card.Body className='pt-1'>
                     <Card.Title>
                         {getTextContent4Multilanguage(book.title, i18n.language)}
                     </Card.Title>
-                    {/* <Card.Subtitle>Card subtitle</Card.Subtitle> */}
+                    <Card.Text>
+                        {book.classifications &&
+                            book.classifications.length > 0 &&
+                            'Classification: ' +
+                                book.classifications.map((item) => item.title).join(', ')}
+                    </Card.Text>
                     <Card.Text className='d-none d-sm-block'>
                         {getLongTextContent4Multilanguage(book.description, i18n.language, 150)}
                     </Card.Text>

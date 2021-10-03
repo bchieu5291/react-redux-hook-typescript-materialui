@@ -23,6 +23,8 @@ interface IAddBook {
     description: string
     url: string
     image: File[]
+    bookFile: File[]
+    classifications: Classification[]
     languageId: string
 }
 
@@ -35,6 +37,11 @@ const UpdateBookModal = () => {
         updateBook,
     } = useContext(BookContext)
 
+    const {
+        getClassificationsByType,
+        classifcationState: { classificationsLoading, classifications },
+    } = useContext(ClassificationContext)
+
     const [t, i18n] = useTranslation('common')
 
     //state
@@ -44,6 +51,12 @@ const UpdateBookModal = () => {
         title: getTextContent4Multilanguage(bookDetail.title, i18n.language),
         description: getLongTextContent4Multilanguage(bookDetail.description, i18n.language),
         image: [],
+        bookFile: [],
+        classifications:
+            bookDetail.classifications.map((item) => ({
+                value: item._id,
+                label: item.title,
+            })) || [],
         languageId: 'en',
     }
 
@@ -63,6 +76,11 @@ const UpdateBookModal = () => {
             _formData.append('description', values.description)
             _formData.append('url', values.url)
             _formData.append('imageFile', values.image[0] as File)
+            _formData.append('bookFile', values.bookFile[0] as File)
+            _formData.append(
+                'classifications',
+                values.classifications.map((item) => item.value).join(',')
+            )
             _formData.append('languageId', i18n.language)
             const response = await updateBook(_formData)
 
@@ -116,17 +134,40 @@ const UpdateBookModal = () => {
                                         isMultiLanguage={true}
                                     />
                                     <FastField
+                                        name='classifications'
+                                        component={SelectDropdownField}
+                                        options={classifications}
+                                        label='Classifications'
+                                        placeholder='Select'
+                                    />
+
+                                    <FastField
                                         name='image'
                                         type='file'
                                         component={UploadFileField}
                                         label='Image'
                                         placeholder='Select image'
                                     />
+
                                     <Row className='mb-2'>
-                                        <Col>
+                                        <Col md='4'>
                                             <Card.Img
                                                 src={`${bookDetail.imageFile.imageUrl}`}
                                             ></Card.Img>
+                                        </Col>
+                                    </Row>
+                                    <FastField
+                                        name='bookFile'
+                                        type='file'
+                                        component={UploadFileField}
+                                        label='Book File'
+                                        placeholder='Select Book File'
+                                    />
+                                    <Row className='mb-2'>
+                                        <Col>
+                                            <Card.Text>
+                                                {bookDetail.bookFile?.fileUrl ?? ''}
+                                            </Card.Text>
                                         </Col>
                                     </Row>
                                 </Modal.Body>
