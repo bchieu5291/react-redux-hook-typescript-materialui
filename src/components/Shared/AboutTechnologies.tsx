@@ -35,7 +35,7 @@ const AboutTechnologies = () => {
                             <div className='step step-3'>
                                 <div className='step-name'>React</div>
                                 <div className='step-title'>
-                                    <i className='icon icon-optimize'></i>Fontend
+                                    <i className='icon icon-optimize'></i>Frontend
                                 </div>
 
                                 <div className='step-arrow'></div>

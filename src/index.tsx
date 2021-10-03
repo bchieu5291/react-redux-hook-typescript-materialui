@@ -35,6 +35,7 @@ import common_vi from 'translate/vi/common.json'
 import PortalBookListing from 'Portal/PortalBookListing'
 import BookContextProvider from 'contexts/BookContext'
 import MyExpericence from './PublicPages/MyExpericence'
+import ScrollToTop from 'components/Shared/ScrollToTop'
 
 i18next.use(LanguageDetector).init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -62,76 +63,78 @@ ReactDOM.render(
                                             <ThemeContextProvider>
                                                 <ProgressContextProvider>
                                                     <Router>
-                                                        <Switch>
-                                                            <Route
-                                                                exact
-                                                                path='/'
-                                                                component={NewsPage}
-                                                            ></Route>
-                                                            <Route
-                                                                exact
-                                                                path='/about'
-                                                                component={About}
-                                                            ></Route>
-                                                            <Route
-                                                                exact
-                                                                path='/my-experience'
-                                                                component={MyExpericence}
-                                                            ></Route>
-                                                            <Route
-                                                                path='/news/:id'
-                                                                component={NewsDetailPages}
-                                                            ></Route>
-                                                            <Route
-                                                                exact
-                                                                path='/login'
-                                                                render={(props) => (
-                                                                    <AuthTemplate
-                                                                        {...props}
-                                                                        authRoute='login'
-                                                                    />
-                                                                )}
-                                                            ></Route>
-                                                            <Route
-                                                                exact
-                                                                path='/register'
-                                                                render={(props) => (
-                                                                    <AuthTemplate
-                                                                        {...props}
-                                                                        authRoute='register'
-                                                                    />
-                                                                )}
-                                                            ></Route>
-                                                            <ProtectedRoute
-                                                                exact
-                                                                path='/portal'
-                                                                component={Portal}
-                                                            ></ProtectedRoute>
-                                                            <ProtectedRoute
-                                                                exact
-                                                                path='/portal/news'
-                                                                component={NewsListing}
-                                                            ></ProtectedRoute>
-                                                            <ProtectedRoute
-                                                                exact
-                                                                path='/portal/book'
-                                                                component={PortalBookListing}
-                                                            ></ProtectedRoute>
-                                                            <ProtectedRoute
-                                                                exact
-                                                                path='/portal/resize-image'
-                                                                component={PortalResizeImage}
-                                                            ></ProtectedRoute>
-                                                            <Route path='/dashboard'>
-                                                                <DashBoard />
-                                                            </Route>
-                                                            <Route path='/card-detail'>
-                                                                <CardDetail />
-                                                            </Route>
-                                                            <Route path='/movie-listing'>
-                                                                <CardDetail />
-                                                            </Route>
-                                                        </Switch>
+                                                        <ScrollToTop>
+                                                            <Switch>
+                                                                <Route
+                                                                    exact
+                                                                    path='/'
+                                                                    component={NewsPage}
+                                                                ></Route>
+                                                                <Route
+                                                                    exact
+                                                                    path='/about'
+                                                                    component={About}
+                                                                ></Route>
+                                                                <Route
+                                                                    exact
+                                                                    path='/my-experience'
+                                                                    component={MyExpericence}
+                                                                ></Route>
+                                                                <Route
+                                                                    path='/news/:id'
+                                                                    component={NewsDetailPages}
+                                                                ></Route>
+                                                                <Route
+                                                                    exact
+                                                                    path='/login'
+                                                                    render={(props) => (
+                                                                        <AuthTemplate
+                                                                            {...props}
+                                                                            authRoute='login'
+                                                                        />
+                                                                    )}
+                                                                ></Route>
+                                                                <Route
+                                                                    exact
+                                                                    path='/register'
+                                                                    render={(props) => (
+                                                                        <AuthTemplate
+                                                                            {...props}
+                                                                            authRoute='register'
+                                                                        />
+                                                                    )}
+                                                                ></Route>
+                                                                <ProtectedRoute
+                                                                    exact
+                                                                    path='/portal'
+                                                                    component={Portal}
+                                                                ></ProtectedRoute>
+                                                                <ProtectedRoute
+                                                                    exact
+                                                                    path='/portal/news'
+                                                                    component={NewsListing}
+                                                                ></ProtectedRoute>
+                                                                <ProtectedRoute
+                                                                    exact
+                                                                    path='/portal/book'
+                                                                    component={PortalBookListing}
+                                                                ></ProtectedRoute>
+                                                                <ProtectedRoute
+                                                                    exact
+                                                                    path='/portal/resize-image'
+                                                                    component={PortalResizeImage}
+                                                                ></ProtectedRoute>
+                                                                <Route path='/dashboard'>
+                                                                    <DashBoard />
+                                                                </Route>
+                                                                <Route path='/card-detail'>
+                                                                    <CardDetail />
+                                                                </Route>
+                                                                <Route path='/movie-listing'>
+                                                                    <CardDetail />
+                                                                </Route>
+                                                            </Switch>
+                                                        </ScrollToTop>
                                                     </Router>
                                                 </ProgressContextProvider>
                                             </ThemeContextProvider>
