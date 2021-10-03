@@ -9,14 +9,13 @@ const SingleBook = (book: IBook) => {
     const [t, i18n] = useTranslation('common')
     return (
         <Row className='no-gutters'>
-            <div>
+            <Col xs='4'>
                 <Image
-                    style={{ maxWidth: 150 }}
                     className='news-item-image p-2'
                     src={`${book.imageFile.imageUrl.replace('-original', '-related')}`}
                 />
-            </div>
-            <Col className='w-auto d-flex felx-column'>
+            </Col>
+            <Col xs='8' md='11'>
                 <Card.Body className='pt-1'>
                     <Card.Title>
                         {getTextContent4Multilanguage(book.title, i18n.language)}

@@ -1,4 +1,3 @@
-import { createStyles } from '@material-ui/styles'
 import ActionButtons from 'components/posts/ActionButtons'
 import React from 'react'
 import { Card, Col, Image, Row } from 'react-bootstrap'
@@ -13,6 +12,7 @@ const SingleNews = (news: News) => {
         <Row className='no-gutters'>
             <Col style={blogImageStyle}>
                 <Image
+                    style={{ maxWidth: 150 }}
                     className='news-item-image'
                     src={`${news.imageFile.imageUrl.replace('-original', '-restNews')}`}
                 />
@@ -43,8 +43,6 @@ const SingleNews = (news: News) => {
     )
 }
 
-const blogImageStyle = {
-    width: 60,
-}
+const blogImageStyle = {}
 
 export default SingleNews

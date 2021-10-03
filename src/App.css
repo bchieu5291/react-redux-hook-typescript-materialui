@@ -122,7 +122,7 @@ button.post-button.btn:active {
 }
 
 .news-item {
-    max-height: 170px;
+    /* max-height: 170px; */
 }
 
 .news-item-image {

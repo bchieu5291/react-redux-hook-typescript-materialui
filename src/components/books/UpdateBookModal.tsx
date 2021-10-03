@@ -38,7 +38,6 @@ const UpdateBookModal = () => {
     } = useContext(BookContext)
 
     const {
-        getClassificationsByType,
         classifcationState: { classificationsLoading, classifications },
     } = useContext(ClassificationContext)
 
