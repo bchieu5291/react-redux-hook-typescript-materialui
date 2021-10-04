@@ -21,7 +21,7 @@ interface Props {
 
 interface ContextDefault {
     bookState: IBookReducerState
-    getBook: (title?: string, offset?: number, length?: number) => void
+    getBook: (title?: string, classifications?: string, offset?: number, length?: number) => void
     addBook: (newBook: FormData) => any
     showAddBookModal: boolean
     setShowAddBookModal: (showAddNewsModal: boolean) => void
@@ -92,10 +92,17 @@ const BookContextProvider = ({ children }: Props) => {
     // });
 
     //get News
-    const getBook = async (title?: string, offset?: number, length?: number) => {
+    const getBook = async (
+        title?: string,
+        classifications?: string,
+        offset?: number,
+        length?: number
+    ) => {
         try {
             const response = await axios.get(
-                `${apiUrl}/books?title=${title ?? ''}&offset=${offset ?? 0}&length=${length ?? 0}`
+                `${apiUrl}/books?title=${title ?? ''}&classifications=${
+                    classifications ?? []
+                }&offset=${offset ?? 0}&length=${length ?? 0}`
             )
             if (response.data.success) {
                 dispatch({
@@ -109,7 +116,7 @@ const BookContextProvider = ({ children }: Props) => {
                 })
             }
         } catch (error: any) {
-            return error.response.data
+            return error.response?.data
                 ? error.response.data
                 : { success: false, message: 'Server error' }
         }

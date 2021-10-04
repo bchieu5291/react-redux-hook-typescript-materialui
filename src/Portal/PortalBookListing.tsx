@@ -1,6 +1,6 @@
 import SingleBook from 'components/books/SingleBook'
 import { BookContext } from 'contexts/BookContext'
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Button, Col, OverlayTrigger, Tooltip, Pagination, Row } from 'react-bootstrap'
 import { useEffect } from 'react'
 import addIcon from 'assets/plus-circle-fill.svg'
@@ -9,6 +9,10 @@ import UpdateBookModal from './../components/books/UpdateBookModal'
 import qs from 'querystring'
 import { useHistory, useLocation } from 'react-router-dom'
 import { ClassificationContext } from 'contexts/ClassificationContext'
+import { Field, Form, Formik } from 'formik'
+import SelectDropdownField from 'components/custom/SelectDropdownField'
+import InputField from 'components/custom/InputField'
+import { Classification } from 'reducers/classificationReducer'
 
 const PortalBookListing = () => {
     //context
@@ -23,6 +27,8 @@ const PortalBookListing = () => {
         classifcationState: { classificationsLoading, classifications },
     } = useContext(ClassificationContext)
 
+    const formikRef = useRef<any>(null) // call submit outside formik
+
     //router
     var router = useHistory()
     const location = useLocation()
@@ -36,8 +42,26 @@ const PortalBookListing = () => {
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search)
         const params = Object.fromEntries(urlSearchParams.entries())
-        getBook(params.title, params.page ? (parseInt(params.page) - 1) * 3 : 0, undefined)
+        getBook(
+            params.title,
+            params.classifications,
+            params.page ? (parseInt(params.page) - 1) * 3 : 0,
+            undefined
+        )
         window.scrollTo(0, 0)
+
+        if (formikRef.current) {
+            formikRef.current.setFieldValue('title', params.title ?? '')
+            formikRef.current.setFieldValue(
+                'classifications',
+                params.classifications?.split(',').map(
+                    (t) =>
+                        ({
+                            value: t,
+                        } as Classification)
+                ) ?? []
+            )
+        }
     }, [location])
 
     let body = null
@@ -67,6 +91,89 @@ const PortalBookListing = () => {
         </>
     )
 
+    let initialValues = {
+        title: '',
+        classifications: [] as Classification[],
+    }
+
+    const onClickApplySearch = async (values: any) => {
+        router.push({
+            search: `title=${values.title}&classifications=${values.classifications
+                .map((t: any) => t.value)
+                .join(',')}&page=1`, // query string
+        })
+    }
+
+    const handleReset = (setFieldValue: any) => {
+        setFieldValue('title', '')
+        setFieldValue('classifications', [])
+        router.push({
+            search: ``, // query string
+        })
+    }
+
+    let filter = null
+    filter = (
+        <>
+            <Formik
+                innerRef={formikRef}
+                initialValues={initialValues}
+                onSubmit={onClickApplySearch}
+            >
+                {(formikProps) => {
+                    const { values, errors, touched, handleSubmit, setFieldValue } = formikProps
+                    console.log({ values, errors, touched })
+                    return (
+                        <>
+                            <Form
+                                onSubmit={(e) => {
+                                    e.preventDefault()
+                                    handleSubmit()
+                                }}
+                            >
+                                <Row className='mx-auto mt-4'>
+                                    <Col xs lg='4'>
+                                        <Field
+                                            name='title'
+                                            component={InputField}
+                                            label='Title'
+                                            placeholder='book title'
+                                        />
+                                    </Col>
+
+                                    <Col xs lg='4'>
+                                        <Field
+                                            name='classifications'
+                                            component={SelectDropdownField}
+                                            options={classifications}
+                                            label='Classifications'
+                                            placeholder='Select'
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row className='mx-auto'>
+                                    <Col xs lg='4' className='my-0'>
+                                        <Button variant='primary' type='submit' className='mr-2'>
+                                            Apply
+                                        </Button>
+                                        <Button
+                                            variant='primary'
+                                            type='button'
+                                            className='mr-2'
+                                            onClick={handleReset.bind(this, setFieldValue)}
+                                        >
+                                            Clear
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </>
+                    )
+                }}
+            </Formik>
+        </>
+    )
+
     const handlePagination = (page: number) => {
         const queryParams = qs.parse(location.search.replace('?', ''))
         const newQueries = { ...queryParams, page: page }
@@ -88,6 +195,7 @@ const PortalBookListing = () => {
         <div>
             <AddBookModal />
             {bookDetail !== null && <UpdateBookModal />}
+            {filter}
             {body}
             <Row className='row-cols-12 g-4 mx-auto mt-3 justify-content-center'>
                 <Col xs lg='4'>
