@@ -9,7 +9,7 @@ const SingleBook = (book: IBook) => {
     const [t, i18n] = useTranslation('common')
     return (
         <Row className='no-gutters'>
-            <Col xs='4'>
+            <Col xs='4' md='1'>
                 <Image
                     className='news-item-image p-2'
                     src={`${book.imageFile.imageUrl.replace('-original', '-related')}`}
