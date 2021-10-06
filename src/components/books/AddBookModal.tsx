@@ -49,7 +49,6 @@ const AddBookModal = () => {
         image: Yup.array().min(1, 'Required field.'),
         bookFile: Yup.array().min(1, 'Required field.'),
         classifications: Yup.array().min(1, 'Required field.'),
-        url: Yup.string().required('Required field.'),
     })
 
     const resetAddBookData = () => {
