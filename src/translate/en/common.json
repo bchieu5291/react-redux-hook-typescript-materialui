@@ -1,12 +1,14 @@
 {
     "home": {
         "news": "News",
-        "login": "Login"
+        "login": "Login",
+        "reactNative": "React Native"
     },
     "register": "register",
     "dontHaveAccount": "Don't have account?",
     "backToHomepage": "Back to home page",
     "about": "About",
     "experience": "Experience",
+    "user": "User",
     "book": "Book"
 }

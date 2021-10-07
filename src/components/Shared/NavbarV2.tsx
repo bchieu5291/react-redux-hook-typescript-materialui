@@ -44,6 +44,9 @@ const NavbarV2 = () => {
                     <Nav.Link className='font-weight-bolder text-white' to='/portal' as={Link}>
                         Dashboard
                     </Nav.Link>
+                    <Nav.Link className='font-weight-bolder text-white' to='/portal/user' as={Link}>
+                        {t('user')}
+                    </Nav.Link>
                     <Nav.Link className='font-weight-bolder text-white' to='/portal/news' as={Link}>
                         {t('home.news')}
                     </Nav.Link>

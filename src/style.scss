@@ -49,9 +49,8 @@ section#my-project-work {
     img.my-project-item {
         width: 100%;
         border-radius: 16px;
-        height: 150px;
+        max-height: 150px;
     }
-
     .imgHolder {
         position: relative;
 
@@ -72,4 +71,8 @@ section#my-project-work {
     //     position: relative;
     //     top: -20px;
     // }
+}
+
+.Popup img.my-project-item {
+    max-height: 70vh;
 }

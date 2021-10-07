@@ -1,12 +1,14 @@
 {
     "home": {
         "news": "Tin tức",
-        "login": "Đăng nhập"
+        "login": "Đăng nhập",
+        "reactNative": "React Native"
     },
     "register": "Đăng ký",
     "dontHaveAccount": "Quên mật khẩu?",
     "backToHomepage": "Trở về trang chủ",
     "about": "Thông tin",
-    "experience": "kinh nghiệm",
+    "experience": "Kinh nghiệm",
+    "user": "Tài khoản",
     "book": "Sách"
 }

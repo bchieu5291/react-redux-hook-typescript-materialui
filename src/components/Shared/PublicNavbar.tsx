@@ -21,6 +21,8 @@ const PublicNavbar = () => {
 
     const isExperience = location.pathname === '/my-experience' && 'font-weight-bolder'
     const isAbout = location.pathname === '/about' && 'font-weight-bolder'
+    const isReactNativeExperience =
+        location.pathname === '/react-native-experience' && 'font-weight-bolder'
 
     const onChangeLanguage = (code: any) => {
         setSelected(code)
@@ -47,6 +49,13 @@ const PublicNavbar = () => {
                         as={Link}
                     >
                         {t('experience')}
+                    </Nav.Link>
+                    <Nav.Link
+                        className={`${isReactNativeExperience} text-white`}
+                        to='/react-native-experience'
+                        as={Link}
+                    >
+                        {t('home.reactNative')}
                     </Nav.Link>
                     <Nav.Link
                         className='text-white'
