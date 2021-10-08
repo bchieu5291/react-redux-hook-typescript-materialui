@@ -10,14 +10,13 @@ const SingleNews = (news: News) => {
 
     return (
         <Row className='no-gutters'>
-            <Col style={blogImageStyle}>
+            <Col md='3'>
                 <Image
-                    style={{ maxWidth: 150 }}
                     className='news-item-image'
                     src={`${news.imageFile.imageUrl.replace('-original', '-restNews')}`}
                 />
             </Col>
-            <Col xs='9' md='9'>
+            <Col md='9'>
                 <Card.Body>
                     <Card.Title>
                         {getTextContent4Multilanguage(news.title, i18n.language)}
