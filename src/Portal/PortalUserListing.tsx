@@ -23,12 +23,12 @@ const PortalUserListing = () => {
 
     const columns = [
         {
-            dataField: '_id',
-            text: 'ID',
-        },
-        {
             dataField: 'username',
             text: 'Username',
+        },
+        {
+            dataField: 'roles',
+            text: 'Roles',
         },
         {
             dataField: 'createAt',
