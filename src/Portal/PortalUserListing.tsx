@@ -8,6 +8,7 @@ import paginationFactory, {
     PaginationTotalStandalone,
     SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator'
+import moment from 'moment'
 
 const { SearchBar } = Search
 
@@ -33,6 +34,9 @@ const PortalUserListing = () => {
         {
             dataField: 'createAt',
             text: 'Create At',
+            formatter: (cell: string) => {
+                return <>{moment(cell).format('DD MMM yyyy hh:mm:ss')}</>
+            },
         },
     ]
 
@@ -45,23 +49,30 @@ const PortalUserListing = () => {
     return (
         <>
             {userlisting && (
-                <PaginationProvider pagination={paginationFactory(paginationOption)}>
-                    {({ paginationProps, paginationTableProps }) => (
-                        <ToolkitProvider keyField='id' data={userlisting} columns={columns} search>
-                            {(props) => (
-                                <div>
-                                    <p>Search:</p>
-                                    <SearchBar {...props.searchProps} />
-                                    <hr />
-                                    <BootstrapTable
-                                        {...props.baseProps}
-                                        {...paginationTableProps}
-                                    />
-                                </div>
-                            )}
-                        </ToolkitProvider>
-                    )}
-                </PaginationProvider>
+                <div className='col-md-12 mt-3'>
+                    <PaginationProvider pagination={paginationFactory(paginationOption)}>
+                        {({ paginationProps, paginationTableProps }) => (
+                            <ToolkitProvider
+                                keyField='id'
+                                data={userlisting}
+                                columns={columns}
+                                search
+                            >
+                                {(props) => (
+                                    <div>
+                                        <p>Search:</p>
+                                        <SearchBar {...props.searchProps} />
+                                        <hr />
+                                        <BootstrapTable
+                                            {...props.baseProps}
+                                            {...paginationTableProps}
+                                        />
+                                    </div>
+                                )}
+                            </ToolkitProvider>
+                        )}
+                    </PaginationProvider>
+                </div>
             )}
         </>
     )

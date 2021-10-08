@@ -17,6 +17,7 @@ const NavbarV2 = () => {
 
     const [t, i18n] = useTranslation('common')
     const [selected, setSelected] = useState('US')
+    const [expanded, setExpanded] = useState(false)
 
     useEffect(() => {
         const language = localStorage.getItem('i18nextLng')
@@ -34,29 +35,57 @@ const NavbarV2 = () => {
     }
 
     return (
-        <Navbar expand='lg' bg='primary' variant='dark' className='shadow'>
+        <Navbar expand='lg' expanded={expanded} bg='primary' variant='dark' className='sticky-top'>
             <Navbar.Brand className='font-weight-bold text-white'>
                 <img src={learItLogo} alt='learnItLogo' width='32' height='32' className='mr-2' />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls='basic-navbar-nav' />
-            <Navbar.Collapse id='basic-navbar-nav'>
+            <Navbar.Toggle
+                aria-controls='basic-navbar-nav'
+                onClick={() => setExpanded(!expanded)}
+            />
+            <Navbar.Collapse
+                id='basic-navbar-nav'
+                data-toggle='collapse'
+                data-target='.navbar-collapse'
+            >
                 <Nav className='mr-auto'>
-                    <Nav.Link className='font-weight-bolder text-white' to='/portal' as={Link}>
+                    <Nav.Link
+                        className='font-weight-bolder text-white'
+                        to='/portal'
+                        as={Link}
+                        onClick={() => setExpanded(false)}
+                    >
                         Dashboard
                     </Nav.Link>
-                    <Nav.Link className='font-weight-bolder text-white' to='/portal/user' as={Link}>
+                    <Nav.Link
+                        className='font-weight-bolder text-white'
+                        to='/portal/user'
+                        as={Link}
+                        onClick={() => setExpanded(false)}
+                    >
                         {t('user')}
                     </Nav.Link>
-                    <Nav.Link className='font-weight-bolder text-white' to='/portal/news' as={Link}>
+                    <Nav.Link
+                        className='font-weight-bolder text-white'
+                        to='/portal/news'
+                        as={Link}
+                        onClick={() => setExpanded(false)}
+                    >
                         {t('home.news')}
                     </Nav.Link>
-                    <Nav.Link className='font-weight-bolder text-white' to='/portal/book' as={Link}>
+                    <Nav.Link
+                        className='font-weight-bolder text-white'
+                        to='/portal/book'
+                        as={Link}
+                        onClick={() => setExpanded(false)}
+                    >
                         {t('book')}
                     </Nav.Link>
                     <Nav.Link
                         className='font-weight-bolder text-white'
                         to='/portal/resize-image'
                         as={Link}
+                        onClick={() => setExpanded(false)}
                     >
                         Resize Image
                     </Nav.Link>
