@@ -4,9 +4,11 @@
     left: 50%;
     background-color: whitesmoke;
     border: 2px solid black;
-    padding: 32px;
+    padding: 2px;
     border-radius: 12px;
     transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 80vw;
 
     img {
         width: 100%;
