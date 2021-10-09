@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
+import { Container, Dropdown, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ReactFlagsSelect from 'react-flags-select'
@@ -57,27 +57,35 @@ const PublicNavbar = () => {
                     >
                         {t('home.reactNative')}
                     </Nav.Link>
-                    <Nav.Link
+                    <NavDropdown
+                        id='nav-dropdown-dark-example'
+                        title='Demo projects'
                         className='text-white'
-                        href='http://nextjs.georgedev.info'
-                        target='_blank'
                     >
-                        NextJS
-                    </Nav.Link>
-                    <Nav.Link
-                        className='text-white'
-                        href='http://vue.georgedev.info'
-                        target='_blank'
-                    >
-                        Vue
-                    </Nav.Link>
-                    <Nav.Link
-                        className='text-white'
-                        href='http://umbraco.georgedev.info'
-                        target='_blank'
-                    >
-                        Umbraco
-                    </Nav.Link>
+                        <NavDropdown.Item
+                            className='text-white'
+                            href='http://nextjs.georgedev.info'
+                            target='_blank'
+                        >
+                            NextJS
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item
+                            className='text-white'
+                            href='http://umbraco.georgedev.info'
+                            target='_blank'
+                        >
+                            Umbraco
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item
+                            className='text-white'
+                            href='http://vue.georgedev.info'
+                            target='_blank'
+                        >
+                            Vue
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
                 <Nav>
                     <ReactFlagsSelect

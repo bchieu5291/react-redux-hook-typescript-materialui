@@ -7,8 +7,12 @@ import { Button } from 'react-bootstrap'
 import { toast, ToastContainer } from 'react-toastify'
 import { apiUrl } from 'ultilities/constanst'
 import * as Yup from 'yup'
+import { useState } from 'react'
+import { Spinner } from 'react-bootstrap'
 
 const ContactUs = () => {
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
+
     interface IContactUs {
         title: string
         email: string
@@ -37,6 +41,7 @@ const ContactUs = () => {
                 message: values.message,
             } as IContactUs
 
+            setIsLoadingSubmit(true)
             try {
                 await axios.post(`${apiUrl}/contactUs`, contactInputValues)
                 toast('Submit successful!')
@@ -47,6 +52,7 @@ const ContactUs = () => {
                     return { success: false, message: error.message }
                 }
             }
+            setIsLoadingSubmit(false)
         } catch (error) {
             console.log(error)
         }
@@ -97,9 +103,13 @@ const ContactUs = () => {
                                                 placeholder='Message'
                                                 type='textarea'
                                             />
-                                            <Button variant='primary' type='submit'>
-                                                Submit
-                                            </Button>
+                                            {isLoadingSubmit ? (
+                                                <Spinner animation='border' />
+                                            ) : (
+                                                <Button variant='primary' type='submit'>
+                                                    Submit
+                                                </Button>
+                                            )}
                                         </Form>
                                     </>
                                 )
