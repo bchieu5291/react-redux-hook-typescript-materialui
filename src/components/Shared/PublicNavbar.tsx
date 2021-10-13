@@ -64,10 +64,10 @@ const PublicNavbar = () => {
                     >
                         <NavDropdown.Item
                             className='text-white'
-                            href='http://nextjs.georgedev.info'
+                            href='http://ecommerce.georgedev.info'
                             target='_blank'
                         >
-                            NextJS
+                            NextJS (Ecommerce)
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item
