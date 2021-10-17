@@ -13,13 +13,29 @@ const ReactNativeExperience = () => {
 
     return (
         <PublicTemplate>
-            <section id='react-native-experience' className='pb-0'>
+            <section id='react-native-experience'>
                 <div className='container'>
-                    <h1>G-Book</h1>
                     <div className='row'>
                         <div className='col-md-8'>
+                            <div className='react-native-left-wrapper'>
+                                <img
+                                    src='https://play-lh.googleusercontent.com/og7dffZb5eeFmWig2XQzUSU8Ty-OjnyeBZLA92bpnWQxjcyH_DAlbqc_txSw1pB6iEIL=s180-rw'
+                                    alt=''
+                                    className='mr-2'
+                                    onClick={onImageClick.bind(
+                                        this,
+                                        'https://play-lh.googleusercontent.com/og7dffZb5eeFmWig2XQzUSU8Ty-OjnyeBZLA92bpnWQxjcyH_DAlbqc_txSw1pB6iEIL=s180-rw'
+                                    )}
+                                />
+                                <h1>G-Book</h1>
+                            </div>
                             <p>Download and read book with device app</p>
                             <p>Fitler book</p>
+                            <p>
+                                <a href='https://play.google.com/store/apps/details?id=com.georgedev.gbook'>
+                                    Google play
+                                </a>
+                            </p>
                         </div>
                         <div className='col-md-4'>
                             <img
