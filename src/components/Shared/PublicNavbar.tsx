@@ -64,7 +64,7 @@ const PublicNavbar = () => {
                     >
                         <NavDropdown.Item
                             className='text-white'
-                            href='http://ecommerce.georgedev.info'
+                            href='http://ecommerce.georgedev.net'
                             target='_blank'
                         >
                             NextJS (Ecommerce)
@@ -72,7 +72,7 @@ const PublicNavbar = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item
                             className='text-white'
-                            href='http://umbraco.georgedev.info'
+                            href='http://umbraco.georgedev.net'
                             target='_blank'
                         >
                             Umbraco
@@ -80,7 +80,7 @@ const PublicNavbar = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item
                             className='text-white'
-                            href='http://vue.georgedev.info'
+                            href='http://vue.georgedev.net'
                             target='_blank'
                         >
                             Vue
